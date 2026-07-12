@@ -275,3 +275,64 @@ footer.site-footer {
 @media (max-width: 520px) {
     .nav-links a:not(.lang-switch):not(:first-child) { display: none; }
 }
+
+/* ── Lead-capture modal (assets/lead-form.js) ── */
+.lead-modal { position: fixed; inset: 0; z-index: 200; display: none; }
+.lead-modal.open { display: block; }
+.lead-modal-backdrop {
+    position: absolute; inset: 0;
+    background: rgba(12, 13, 15, 0.55);
+    backdrop-filter: blur(2px);
+}
+.lead-modal-card {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(440px, calc(100vw - 2.5rem));
+    max-height: calc(100vh - 3rem);
+    overflow-y: auto;
+    background: var(--white);
+    color: var(--black);
+    padding: 2.25rem 2.25rem 2rem;
+    border: 1px solid var(--ivory-2);
+}
+.lead-modal-card h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.9rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.35rem;
+}
+.lead-modal-sub { font-size: 0.9rem; color: var(--dim); margin-bottom: 1.5rem; }
+.lead-modal-close {
+    position: absolute; top: 0.9rem; right: 1.1rem;
+    background: none; border: none; cursor: pointer;
+    font-size: 1.5rem; line-height: 1; color: var(--mid);
+}
+.lead-modal-close:hover { color: var(--black); }
+.lead-form label {
+    display: block;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 1rem;
+}
+.lead-form input:not([type="hidden"]):not([name="website"]),
+.lead-form textarea {
+    display: block; width: 100%;
+    margin-top: 0.35rem;
+    padding: 0.65rem 0.75rem;
+    font: inherit; font-size: 0.95rem;
+    color: var(--black);
+    background: var(--ivory);
+    border: 1px solid var(--ivory-2);
+    border-radius: 0;
+}
+.lead-form input:focus, .lead-form textarea:focus {
+    outline: none; border-color: var(--teal);
+}
+.lead-form-submit { width: 100%; justify-content: center; margin-top: 0.25rem; }
+.lead-form-note { margin-top: 1rem; font-size: 0.95rem; line-height: 1.55; }
+.lead-form-note.ok { color: var(--clear); }
+.lead-form-note.err { color: var(--danger); }
+.lead-form-note a { color: var(--teal); text-decoration: none; border-bottom: 1px solid rgba(13,148,136,0.4); }
