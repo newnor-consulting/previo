@@ -4,1016 +4,215 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Previo — Efterretning fra det offentlige register</title>
-    <meta name="description" content="Vi fastslår, hvad det offentlige register indeholder om en person, en virksomhed eller en forsyningskæde. Hvert fund kan spores til en primærkilde, du selv kan åbne.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-    <style>
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-        :root {
-            --black:    #0C0D0F;
-            --black-2:  #141517;
-            --ivory:    #F5F3EF;
-            --ivory-2:  #E8E5DF;
-            --white:    #FAFAF8;
-            --mid:      #8A8A86;
-            --dim:      #5A5A57;
-            --teal:     #0D9488;
-            --teal-lt:  #14B8A6;
-            --clear:    #059669;
-            --caution:  #D97706;
-            --danger:   #DC2626;
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'DM Sans', sans-serif;
-            background: var(--black);
-            color: var(--ivory);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-        }
-
-        /* ── Nav ── */
-        nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 3.5rem;
-            background: transparent;
-            transition: background 0.4s ease, border-color 0.3s ease;
-            border-bottom: 1px solid transparent;
-        }
-        nav.scrolled {
-            background: rgba(12, 13, 15, 0.92);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom-color: rgba(255,255,255,0.06);
-        }
-
-        .logo {
-            font-family: 'Instrument Serif', serif;
-            font-size: 1.5rem;
-            letter-spacing: -0.02em;
-            color: var(--ivory);
-            text-decoration: none;
-        }
-        .logo-dot { color: var(--teal); }
-
-        .nav-links {
-            display: flex; align-items: center; gap: 2.5rem;
-        }
-        .nav-links a {
-            font-size: 0.8rem;
-            color: var(--mid);
-            text-decoration: none;
-            letter-spacing: 0.02em;
-            transition: color 0.2s;
-        }
-        .nav-links a:hover { color: var(--ivory); }
-
-        .lang-switch {
-            font-size: 0.72rem;
-            color: var(--dim);
-            text-decoration: none;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 0.3rem 0.6rem;
-            border-radius: 4px;
-            transition: color 0.2s, border-color 0.2s;
-        }
-        .lang-switch:hover {
-            color: var(--ivory);
-            border-color: rgba(255,255,255,0.25);
-        }
-
-        /* ── Shared ── */
-        .section-dark { background: var(--black); color: var(--ivory); }
-        .section-light { background: var(--ivory); color: var(--black); }
-
-        .contain {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 3.5rem;
-        }
-
-        .label {
-            font-size: 0.7rem;
-            font-weight: 500;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-        }
-        .label-dark { color: var(--mid); }
-        .label-light { color: var(--dim); }
-
-        /* ── Hero ── */
-        .hero {
-            min-height: 100svh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 8rem 2rem 6rem;
-            position: relative;
-        }
-
-        .hero h1 {
-            font-family: 'Instrument Serif', serif;
-            font-size: clamp(3.2rem, 7.5vw, 7rem);
-            line-height: 1.02;
-            letter-spacing: -0.035em;
-            font-weight: 400;
-            max-width: 900px;
-            margin-bottom: 2rem;
-            opacity: 0;
-            animation: fadeIn 0.8s ease 0.1s forwards;
-        }
-
-        .hero-sub {
-            font-size: clamp(0.95rem, 1.4vw, 1.15rem);
-            color: var(--mid);
-            line-height: 1.7;
-            max-width: 520px;
-            margin: 0 auto 2.5rem;
-            opacity: 0;
-            animation: fadeIn 0.8s ease 0.3s forwards;
-        }
-
-        .hero-form-wrap {
-            opacity: 0;
-            animation: fadeIn 0.8s ease 0.5s forwards;
-        }
-
-        .email-form {
-            display: flex;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            background: var(--black-2);
-            max-width: 440px;
-            margin: 0 auto;
-            transition: border-color 0.25s, box-shadow 0.25s;
-        }
-        .email-form:focus-within {
-            border-color: rgba(13, 148, 136, 0.5);
-            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.12);
-        }
-        .email-form input {
-            flex: 1;
-            padding: 0.9rem 1.2rem;
-            border: none;
-            background: transparent;
-            color: var(--ivory);
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.9rem;
-            outline: none;
-            min-width: 0;
-        }
-        .email-form input::placeholder { color: var(--dim); }
-        .email-form button {
-            padding: 0.9rem 1.5rem;
-            border: none;
-            background: var(--teal);
-            color: #fff;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.82rem;
-            font-weight: 500;
-            letter-spacing: 0.02em;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: background 0.2s;
-        }
-        .email-form button:hover { background: var(--teal-lt); }
-        .email-form button:disabled { opacity: 0.6; cursor: not-allowed; }
-
-        .form-success {
-            display: none;
-            padding: 0.9rem 1.2rem;
-            border-radius: 10px;
-            border: 1px solid rgba(5, 150, 105, 0.25);
-            background: rgba(5, 150, 105, 0.06);
-            color: var(--clear);
-            font-size: 0.88rem;
-            max-width: 440px;
-            margin: 0 auto;
-        }
-
-        .hero-trust {
-            margin-top: 1.25rem;
-            font-size: 0.72rem;
-            color: var(--dim);
-            letter-spacing: 0.02em;
-            opacity: 0;
-            animation: fadeIn 0.8s ease 0.65s forwards;
-        }
-        .hero-trust span + span::before {
-            content: '\00B7';
-            margin: 0 0.5rem;
-            opacity: 0.5;
-        }
-
-        /* ── Product Preview (Score Card) ── */
-        .product-preview {
-            padding: 8rem 0 10rem;
-            overflow: hidden;
-        }
-
-        .preview-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-        .preview-header h2 {
-            font-family: 'Instrument Serif', serif;
-            font-size: clamp(2rem, 4vw, 3.4rem);
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            font-weight: 400;
-            color: var(--ivory);
-        }
-        .preview-header p {
-            font-size: 1rem;
-            color: var(--mid);
-            margin-top: 1rem;
-            max-width: 480px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.7;
-        }
-
-        .card-stage {
-            max-width: 380px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .score-card {
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 2px;
-            overflow: hidden;
-        }
-        .card-candidate { position: relative; }
-        .candidate-slide { transition: opacity 0.5s ease; }
-        .candidate-slide.hidden {
-            position: absolute; inset: 0;
-            opacity: 0; pointer-events: none;
-        }
-        .card-header {
-            padding: 2rem 2rem 1.5rem;
-        }
-        .card-name {
-            font-family: 'Instrument Serif', serif;
-            font-size: 1.1rem;
-            font-weight: 400;
-            color: var(--ivory);
-            letter-spacing: -0.01em;
-            margin-bottom: 0.3rem;
-        }
-        .card-role { font-size: 0.7rem; color: var(--mid); letter-spacing: 0.02em; }
-
-        .card-score-wrap {
-            padding: 1.75rem 2rem;
-            border-top: 1px solid rgba(255,255,255,0.06);
-            display: flex;
-            align-items: baseline;
-            gap: 1rem;
-        }
-        .score-number-lg {
-            font-family: 'Instrument Serif', serif;
-            font-size: 3.2rem;
-            line-height: 1;
-            letter-spacing: -0.03em;
-            color: var(--ivory);
-            opacity: 0;
-            transition: opacity 0.6s ease 0.3s;
-        }
-        .score-number-lg.animated { opacity: 1; }
-        .score-meta {
-            display: flex;
-            flex-direction: column;
-            gap: 0.15rem;
-        }
-        .score-label {
-            font-size: 0.65rem;
-            color: var(--dim);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-        .score-band {
-            font-size: 0.78rem;
-            font-weight: 400;
-            letter-spacing: 0.01em;
-        }
-
-        .card-checks {
-            padding: 0 2rem 1.75rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-        }
-        .check-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 0.72rem;
-            padding: 0.7rem 0;
-            border-top: 1px solid rgba(255,255,255,0.04);
-            opacity: 0;
-            transition: opacity 0.35s ease;
-        }
-        .check-row.visible { opacity: 1; }
-        .check-label { color: var(--mid); }
-        .check-result {
-            font-size: 0.68rem;
-            font-weight: 400;
-            letter-spacing: 0.02em;
-        }
-        .check-result.clear { color: var(--ivory); }
-        .check-result.caution { color: var(--caution); }
-
-        .card-footer {
-            padding: 1.25rem 2rem;
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
-        .card-footer-text {
-            font-size: 0.62rem;
-            color: var(--dim);
-            line-height: 1.5;
-            letter-spacing: 0.03em;
-        }
-
-        /* ── How It Works (light) ── */
-        .how-section {
-            padding: 8rem 0 9rem;
-        }
-        .how-section .contain {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6rem;
-            align-items: start;
-        }
-        .how-left h2 {
-            font-family: 'Instrument Serif', serif;
-            font-size: clamp(2.2rem, 4vw, 3.2rem);
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            font-weight: 400;
-            color: var(--black);
-        }
-        .how-left p {
-            font-size: 0.95rem;
-            color: var(--dim);
-            line-height: 1.75;
-            margin-top: 1.25rem;
-            max-width: 440px;
-        }
-
-        .how-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-        }
-        .how-step {
-            padding: 1.75rem 0;
-            border-bottom: 1px solid rgba(0,0,0,0.08);
-            display: grid;
-            grid-template-columns: 3rem 1fr;
-            gap: 0;
-            align-items: baseline;
-        }
-        .how-step:first-child { border-top: 1px solid rgba(0,0,0,0.08); }
-        .how-step-num {
-            font-family: 'Instrument Serif', serif;
-            font-size: 1.1rem;
-            color: var(--dim);
-        }
-        .how-step-title {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--black);
-            margin-bottom: 0.4rem;
-        }
-        .how-step-desc {
-            font-size: 0.82rem;
-            color: var(--dim);
-            line-height: 1.65;
-            grid-column: 2;
-        }
-
-        /* ── What We Check (dark) ── */
-        .checks-section {
-            padding: 8rem 0 9rem;
-        }
-        .checks-header {
-            margin-bottom: 4rem;
-        }
-        .checks-header h2 {
-            font-family: 'Instrument Serif', serif;
-            font-size: clamp(2.2rem, 4vw, 3.2rem);
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            font-weight: 400;
-        }
-        .checks-header p {
-            font-size: 0.95rem;
-            color: var(--mid);
-            margin-top: 1rem;
-            max-width: 560px;
-            line-height: 1.75;
-        }
-
-        .checks-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0;
-        }
-        .check-item {
-            padding: 2rem 2.5rem 2rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-        }
-        .check-item:nth-child(odd) {
-            padding-right: 3rem;
-            border-right: 1px solid rgba(255,255,255,0.06);
-        }
-        .check-item:nth-child(even) {
-            padding-left: 3rem;
-        }
-        .check-item:nth-child(1),
-        .check-item:nth-child(2) {
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
-        .check-item-title {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: var(--ivory);
-            margin-bottom: 0.5rem;
-        }
-        .check-item-desc {
-            font-size: 0.82rem;
-            color: var(--mid);
-            line-height: 1.65;
-        }
-
-        /* ── Score Bands (light) ── */
-        .bands-section {
-            padding: 8rem 0 9rem;
-        }
-        .bands-header {
-            margin-bottom: 4rem;
-        }
-        .bands-header h2 {
-            font-family: 'Instrument Serif', serif;
-            font-size: clamp(2.2rem, 4vw, 3.2rem);
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            font-weight: 400;
-            color: var(--black);
-        }
-        .bands-header p {
-            font-size: 0.95rem;
-            color: var(--dim);
-            margin-top: 1rem;
-            max-width: 520px;
-            line-height: 1.75;
-        }
-
-        .bands-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 0;
-        }
-        .band-item {
-            padding: 2rem 2.5rem 2rem 0;
-            border-top: 3px solid;
-        }
-        .band-item:not(:last-child) {
-            border-right: 1px solid rgba(0,0,0,0.06);
-            padding-right: 2.5rem;
-        }
-        .band-item:not(:first-child) {
-            padding-left: 2.5rem;
-        }
-        .band-item.b-clear { border-top-color: var(--clear); }
-        .band-item.b-caution { border-top-color: var(--caution); }
-        .band-item.b-danger { border-top-color: var(--danger); }
-
-        .band-range {
-            font-family: 'Instrument Serif', serif;
-            font-size: 2rem;
-            letter-spacing: -0.02em;
-            color: var(--black);
-            margin-bottom: 0.25rem;
-        }
-        .band-name {
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--black);
-            margin-bottom: 0.5rem;
-        }
-        .band-desc {
-            font-size: 0.8rem;
-            color: var(--dim);
-            line-height: 1.6;
-        }
-
-        /* ── Bottom CTA (dark) ── */
-        .bottom-cta {
-            padding: 10rem 0;
-            text-align: center;
-        }
-        .bottom-cta h2 {
-            font-family: 'Instrument Serif', serif;
-            font-size: clamp(2.6rem, 5.5vw, 4.5rem);
-            line-height: 1.05;
-            letter-spacing: -0.035em;
-            font-weight: 400;
-            margin-bottom: 2rem;
-        }
-        .scroll-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.85rem 2rem;
-            background: var(--ivory);
-            color: var(--black);
-            border: none;
-            border-radius: 8px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            text-decoration: none;
-            transition: opacity 0.2s;
-        }
-        .scroll-btn:hover { opacity: 0.85; }
-        .scroll-btn svg { width: 14px; height: 14px; }
-
-        /* ── Footer ── */
-        footer {
-            padding: 3rem 3.5rem;
-            background: var(--black);
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
-        .footer-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-        }
-        .footer-left p {
-            font-size: 0.72rem;
-            color: var(--dim);
-        }
-        .footer-left a {
-            color: var(--dim);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .footer-left a:hover { color: var(--mid); }
-        .footer-right {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-        .footer-right a {
-            font-size: 0.72rem;
-            color: var(--dim);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .footer-right a:hover { color: var(--mid); }
-
-        /* ── Animations ── */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(12px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-            }
-            .reveal { opacity: 1; transform: none; }
-            .hero h1, .hero-sub, .hero-form-wrap, .hero-trust { opacity: 1; }
-        }
-
-        /* ── Responsive ── */
-        @media (max-width: 860px) {
-            .contain { padding: 0 2rem; }
-            nav { padding: 1.25rem 2rem; }
-            .hero { padding: 7rem 2rem 5rem; }
-            .how-section .contain {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-            .checks-grid {
-                grid-template-columns: 1fr;
-            }
-            .check-item {
-                padding: 1.5rem 0 !important;
-                border-right: none !important;
-            }
-            .check-item:nth-child(even) { padding-left: 0 !important; }
-            .bands-row {
-                grid-template-columns: 1fr;
-                gap: 0;
-            }
-            .band-item {
-                padding: 1.5rem 0 !important;
-                border-right: none !important;
-                border-bottom: 1px solid rgba(0,0,0,0.06);
-            }
-            .band-item:not(:first-child) { padding-left: 0 !important; }
-            .bottom-cta { padding: 6rem 0; }
-            .footer-inner { flex-direction: column; text-align: center; }
-            .footer-right { flex-direction: column; gap: 1rem; }
-        }
-        @media (max-width: 520px) {
-            .hero h1 { font-size: 2.8rem; }
-            .email-form { flex-direction: column; }
-            .email-form button { padding: 0.9rem; min-height: 44px; }
-            .hero-trust { display: flex; flex-direction: column; gap: 0.15rem; }
-            .hero-trust span + span::before { display: none; }
-            .nav-links a:not(:last-child) { display: none; }
-        }
-    </style>
+    <meta name="description" content="Previo fastslår, hvad det offentlige register viser om en person, en virksomhed eller en forsyningskæde — og siger klart, hvad det ikke kunne fastslå.">
+    <link rel="canonical" href="https://previo-group.com/da/">
+    <link rel="alternate" hreflang="da" href="https://previo-group.com/da/">
+    <link rel="alternate" hreflang="en" href="https://previo-group.com/">
+    <link rel="alternate" hreflang="x-default" href="https://previo-group.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://previo-group.com/da/">
+    <meta property="og:title" content="Previo — Efterretning fra det offentlige register">
+    <meta property="og:description" content="Hvert fund kan åbnes ved kilden. Hvert hul er anført.">
+    <meta name="twitter:card" content="summary">
+    <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/assets/tokens.css">
+    <link rel="stylesheet" href="/assets/base.css">
+    <link rel="stylesheet" href="/assets/components.css">
 </head>
-<body>
+<body data-line="method">
 
-<!-- Nav -->
-<nav id="mainNav">
-    <a href="/da/" class="logo">Previo<span class="logo-dot">.</span></a>
-    <div class="nav-links">
-        <a href="#how">Hvordan det virker</a>
-        <a href="#checks">Hvad vi tjekker</a>
-        <a href="mailto:hello@previo-group.com">Kontakt</a>
-        <a href="/" class="lang-switch">EN</a>
+<nav class="top-nav">
+    <div class="contain top-nav-inner">
+        <a href="/da/" class="logo">Previo<span class="logo-dot">.</span></a>
+        <div class="nav-links">
+            <a href="/da/metode/">Metode</a>
+            <a href="/da/personer/">Personer</a>
+            <a href="/da/virksomheder/">Virksomheder</a>
+            <a href="/da/dokumentation/">Dokumentation</a>
+            <a href="#" data-lead="contact">Kontakt</a>
+            <a href="/" class="nav-lang" hreflang="en">EN</a>
+        </div>
     </div>
 </nav>
 
-<!-- Hero -->
-<section class="hero section-dark" id="hero">
-    <h1>Hvad registret fastslår.<br>Og hvad det ikke gør.</h1>
-    <p class="hero-sub">Efterretning om de personer, virksomheder og forsyningskæder, du står inde for. Hvert fund kan spores til en primærkilde, du selv kan åbne. Hvert hul i dækningen oplyses, ikke skjules.</p>
-    <div class="hero-form-wrap">
-        <form class="email-form" id="waitlistForm" action="https://api.previo-group.com/webhook" method="POST">
-            <input type="email" name="email" placeholder="Din arbejdsmail" required autocomplete="email" />
-            <button type="submit">Få adgang</button>
-        </form>
-        <div class="form-success" id="formSuccess">
-            Du er på listen — vi vender tilbage.
+<header class="hero">
+    <div class="contain">
+        <h1>Hvert fund kan åbnes ved kilden.<br>Hvert hul er anført.</h1>
+        <p class="lede">Previo fastslår, hvad det offentlige register viser om de personer, virksomheder og forsyningskæder, en beslutning afhænger af — og siger klart, hvad det ikke kunne fastslå.</p>
+        <div class="hero-actions">
+            <a href="#" data-lead="contact" class="btn btn-primary">Anmod om adgang</a>
+            <a href="/da/metode/" class="btn btn-quiet">Sådan virker det</a>
+        </div>
+        <div class="hero-trust">
+            <span>UK &amp; EU</span>
+            <span>Regulerede og omdømmefølsomme beslutninger</span>
+            <span>GDPR artikel 6, stk. 1, litra f</span>
         </div>
     </div>
-    <p class="hero-trust">
-        <span>UK &amp; EU virksomheder</span>
-        <span>Regulerede brancher</span>
-        <span>GDPR-kompatibel</span>
-    </p>
-</section>
+</header>
 
-<!-- Product Preview -->
-<section class="product-preview section-dark">
+<section class="section">
     <div class="contain">
-        <div class="preview-header reveal">
-            <p class="label label-dark">Previo-scoren</p>
-            <h2>Én score. Én rapport.<br>Revisionshistorik vedlagt.</h2>
-            <p>Hver kandidat får en score fra 0 til 100, underbygget af kildehenvisninger. Et menneske gennemgår og frigiver hver eneste rapport.</p>
-        </div>
-
-        <div class="card-stage reveal">
-            <div class="score-card">
-                <div class="card-candidate" id="cardCandidate">
-                    <!-- Kandidat 1 -->
-                    <div class="candidate-slide">
-                        <div class="card-header">
-                            <div class="card-name">James Whitfield</div>
-                            <div class="card-role">Compliance-chef &middot; Whitfield &amp; Partners LLP</div>
-                        </div>
-                        <div class="card-score-wrap">
-                            <div class="score-number-lg">84</div>
-                            <div class="score-meta">
-                                <div class="score-label">Previo Score</div>
-                                <div class="score-band" style="color:var(--clear)">Godkendt</div>
-                            </div>
-                        </div>
-                        <div class="card-checks">
-                            <div class="check-row"><span class="check-label">Sanktioner &amp; overvågningslister</span><span class="check-result clear">Intet match</span></div>
-                            <div class="check-row"><span class="check-label">Negativ medieomtale</span><span class="check-result clear">Intet relevant</span></div>
-                            <div class="check-row"><span class="check-label">Selskabsregistre</span><span class="check-result clear">Intet negativt</span></div>
-                            <div class="check-row"><span class="check-label">Offentlige registre</span><span class="check-result clear">Intet fundet</span></div>
-                        </div>
+        <p class="label">Leverancen</p>
+        <div class="split">
+            <div>
+                <h2>En vurdering, der markerer<br>sine egne kanter.</h2>
+            </div>
+            <div class="reveal">
+                <p class="prose">De fleste baggrundstjek fortæller, hvad de fandt. Det sværere og mere brugbare spørgsmål er, hvad de søgte efter og ikke kunne nå — for fraværet af fund fra en kilde, der aldrig blev forespurgt, er ikke et rent resultat, og at læse det sådan er præcis dér, due diligence svigter.</p>
+                <p class="prose">Derfor slutter hver eneste Previo-rapport med det samme afsnit, og det er ikke et forbehold.</p>
+                <div class="coverage">
+                    <div class="coverage-col">
+                        <h3>Kilder, der blev nået</h3>
+                        <ul>
+                            <li>Navngivet enkeltvis, med datoen for hver forespørgsel</li>
+                            <li>Hvert fund knyttet til den optegnelse, det stammer fra</li>
+                        </ul>
                     </div>
-                    <!-- Kandidat 2 -->
-                    <div class="candidate-slide hidden">
-                        <div class="card-header">
-                            <div class="card-name">Sarah Chen</div>
-                            <div class="card-role">Senior politisk rådgiver &middot; National Campaign Office</div>
-                        </div>
-                        <div class="card-score-wrap">
-                            <div class="score-number-lg">91</div>
-                            <div class="score-meta">
-                                <div class="score-label">Previo Score</div>
-                                <div class="score-band" style="color:var(--clear)">Godkendt</div>
-                            </div>
-                        </div>
-                        <div class="card-checks">
-                            <div class="check-row"><span class="check-label">Sanktioner &amp; overvågningslister</span><span class="check-result clear">Intet match</span></div>
-                            <div class="check-row"><span class="check-label">Negativ medieomtale</span><span class="check-result clear">Intet relevant</span></div>
-                            <div class="check-row"><span class="check-label">Selskabsregistre</span><span class="check-result clear">Intet negativt</span></div>
-                            <div class="check-row"><span class="check-label">Offentlige registre</span><span class="check-result clear">Intet fundet</span></div>
-                        </div>
-                    </div>
-                    <!-- Kandidat 3 -->
-                    <div class="candidate-slide hidden">
-                        <div class="card-header">
-                            <div class="card-name">Marcus Obi</div>
-                            <div class="card-role">Administrerende direktør &middot; Helios Advisory Group</div>
-                        </div>
-                        <div class="card-score-wrap">
-                            <div class="score-number-lg">67</div>
-                            <div class="score-meta">
-                                <div class="score-label">Previo Score</div>
-                                <div class="score-band" style="color:var(--caution)">Advarsel</div>
-                            </div>
-                        </div>
-                        <div class="card-checks">
-                            <div class="check-row"><span class="check-label">Sanktioner &amp; overvågningslister</span><span class="check-result clear">Intet match</span></div>
-                            <div class="check-row"><span class="check-label">Negativ medieomtale</span><span class="check-result caution">1 omtale fundet</span></div>
-                            <div class="check-row"><span class="check-label">Selskabsregistre</span><span class="check-result clear">Intet negativt</span></div>
-                            <div class="check-row"><span class="check-label">Offentlige registre</span><span class="check-result clear">Intet fundet</span></div>
-                        </div>
+                    <div class="coverage-col">
+                        <h3>Kilder, der ikke blev nået</h3>
+                        <ul>
+                            <li>Navngivet lige så præcist, med begrundelsen</li>
+                            <li>Jurisdiktioner og registre uden for vores dækning, anført</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <span class="card-footer-text">GDPR Art. 7 &middot; Samtykke &middot; Revisionshistorik vedlagt</span>
-                </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Hvordan det virker -->
-<!-- Hvad vi fastslår — de tre linjer under masterbrandet -->
-<section class="section-light" id="lines" style="padding: 7rem 0 7.5rem;">
+<section class="section">
     <div class="contain">
-        <div class="checks-header reveal" style="max-width: 780px;">
-            <p class="label label-light">Hvad vi fastslår</p>
-            <h2>Én motor. Tre emner.</h2>
-            <p>Samme disciplin — fastlæg identiteten, følg ejerskabet, bekræft registret, og sig derefter klart hvad der ikke kunne fastslås — anvendt på det emne, beslutningen afhænger af.</p>
-        </div>
-        <div class="checks-grid reveal" style="margin-top: 3.5rem;">
-            <div class="check-item">
-                <div class="check-item-title" style="color: var(--black);">Personer</div>
-                <p class="check-item-desc" style="color: var(--dim);">Hvad det offentlige register indeholder om en person: sanktioner og overvågningslister, negativ medieomtale, ledelsesposter og konkurskarantæne, offentlige registre.</p>
+        <p class="label">Én metode, tre emner</p>
+        <h2>Den samme disciplin, uanset hvilket<br>emne beslutningen afhænger af.</h2>
+        <p class="prose">Fastlæg enheden. Følg ejerskabet. Bekræft registret. Sig så klart, hvad der ikke kunne fastslås.</p>
+        <div class="lines reveal">
+            <div class="line-tile">
+                <h3>Personer</h3>
+                <p>Sanktioner og overvågningslister, negativ medieomtale, ledelseshverv og konkurskarantæne, offentlige registre. Bruges til ansættelsesscreening og til ledende udnævnelser.</p>
+                <a href="/da/personer/">Personscreening &rarr;</a>
             </div>
-            <div class="check-item">
-                <div class="check-item-title" style="color: var(--black);">Virksomheder</div>
-                <p class="check-item-desc" style="color: var(--dim);">En virksomheds ejerskab, kontrol og ståen — reelle ejere sporet gennem holdingstrukturer, personerne bag dem screenet, og deres øvrige selskaber undersøgt.</p>
+            <div class="line-tile">
+                <h3>Virksomheder</h3>
+                <p>Ejerskab, kontrol og status. Reelle ejere spores gennem holdingstrukturer frem til de fysiske personer bag, og de personer screenes derefter.</p>
+                <a href="/da/virksomheder/">Virksomheds-due-diligence &rarr;</a>
             </div>
-            <div class="check-item">
-                <div class="check-item-title" style="color: var(--black);">Forsyningskæder</div>
-                <p class="check-item-desc" style="color: var(--dim);">Hvor noget kommer fra, og hvor langt tilbage det kan dokumenteres. Leverandører sporet led for led, hvor det punkt hvor sporbarheden stopper selv er et fund.</p>
+            <div class="line-tile">
+                <h3>Forsyningskæder</h3>
+                <p>En forsvarslinje under udvikling, som ikke udbydes i dag. Hvor noget kommer fra, og hvor langt tilbage det kan dokumenteres.</p>
+                <a href="/da/forsyningskaeder/">Hvad det er &rarr;</a>
             </div>
         </div>
     </div>
 </section>
 
-<section class="how-section section-light" id="how">
+<section class="section">
     <div class="contain">
-        <div class="how-left reveal">
-            <p class="label label-light">Hvordan det virker</p>
-            <h2>Fra indsendelse til rapport på timer, ikke uger.</h2>
-            <p>Du indsender en kandidat. Vi klarer resten — samtykke, tjek og en kildebelagt rapport med sine egne dækningsgrænser anført. Et menneske frigiver hver eneste.</p>
-        </div>
-        <div class="how-steps reveal">
-            <div class="how-step">
-                <span class="how-step-num">01</span>
-                <div>
-                    <div class="how-step-title">Du indsender en kandidat</div>
-                    <p class="how-step-desc">Navn, e-mail og den stilling, de er i betragtning til. Det er alt, vi har brug for.</p>
-                </div>
+        <p class="label">Metode</p>
+        <div class="split">
+            <div>
+                <h2>Seks forpligtelser.</h2>
+                <p class="prose"><a href="/da/metode/">Hele metoden &rarr;</a></p>
             </div>
-            <div class="how-step">
-                <span class="how-step-num">02</span>
-                <div>
-                    <div class="how-step-title">Kandidaten giver samtykke</div>
-                    <p class="how-step-desc">Vi sender en sikker invitation. Kandidaten giver samtykke, personlige oplysninger og ansættelseshistorik — fuldt GDPR-kompatibelt.</p>
+            <div class="steps reveal">
+                <div class="step">
+                    <span class="step-num">01</span>
+                    <div>
+                        <div class="step-title">Fastlæg emnet, før der søges</div>
+                        <p class="step-desc">Et fund mod den forkerte enhed er værre end intet fund.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="how-step">
-                <span class="how-step-num">03</span>
-                <div>
-                    <div class="how-step-title">Automatiske tjek kører</div>
-                    <p class="how-step-desc">Sanktioner, negativ medieomtale, selskabsregistre og offentlige registre — ni tjek i alt, med identiteten først.</p>
+                <div class="step">
+                    <span class="step-num">02</span>
+                    <div>
+                        <div class="step-title">Hvert fund bærer sin kilde og sin dato</div>
+                        <p class="step-desc">Du kan åbne optegnelsen selv og efterprøve vores læsning af den.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="how-step">
-                <span class="how-step-num">04</span>
-                <div>
-                    <div class="how-step-title">Du får en dokumenteret vurdering</div>
-                    <p class="how-step-desc">En score, et risikobånd og en rapport på klart sprog med kilde og dato på hvert fund — efterfulgt af en redegørelse for, hvad kilderne ikke kunne fastslå. Et menneske frigiver hver eneste rapport.</p>
+                <div class="step">
+                    <span class="step-num">03</span>
+                    <div>
+                        <div class="step-title">Intet udledes</div>
+                        <p class="step-desc">Signaler, der identificerer frem for at belaste, registreres og indgår aldrig i scoren.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <span class="step-num">04</span>
+                    <div>
+                        <div class="step-title">Dækningen anføres</div>
+                        <p class="step-desc">Hver rapport navngiver de kilder, der blev nået, og dem der ikke blev.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <span class="step-num">05</span>
+                    <div>
+                        <div class="step-title">Et menneske frigiver hver rapport</div>
+                        <p class="step-desc">En kontrol af automatiseringen. Vi beskriver det ikke som en undtagelse fra noget.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <span class="step-num">06</span>
+                    <div>
+                        <div class="step-title">Dér hvor registret stopper, er selv et fund</div>
+                        <p class="step-desc">Rapporteret med en alvorsgrad, ikke gemt i en fodnote.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Hvad vi tjekker -->
-<section class="checks-section section-dark" id="checks">
+<section class="section">
     <div class="contain">
-        <div class="checks-header reveal">
-            <p class="label label-dark">Hvad vi tjekker</p>
-            <h2>Ni tjek. Identiteten kommer først.</h2>
-            <p>Identiteten fastlægges før alt andet kører, fordi et fund mod den forkerte person er værre end intet fund. Fund vægtes derefter efter alvor, aktualitet og relevans. Fire af de ni er vist nedenfor.</p>
+        <p class="label">Fra det offentlige register</p>
+        <h2>To danske sager, hvor beviserne<br>lå frit fremme.</h2>
+        <p class="prose">Ingen af dem blev screenet. I begge tilfælde lå det materiale, der senere afsluttede en politisk karriere, i registre og publiceret journalistik måneder eller år før beslutningen blev truffet.</p>
+        <div class="studies reveal">
+            <a href="/case-study.html" class="study-card">
+                <div class="study-kicker">Sag 01 · 2026</div>
+                <div class="study-figure">4 dage</div>
+                <div class="study-figure-label">Fra valg til eksklusion</div>
+                <div class="study-title">Fire fund, alle før valgdagen</div>
+                <p class="study-lede">En konkurs med krav for 1,6 mio. kr., et strakspåbud fra Arbejdstilsynet, faglige klager om sikkerhed og kommunale klager om tilladelser og fakturering.</p>
+            </a>
+            <a href="/case-study-2.html" class="study-card">
+                <div class="study-kicker">Sag 02 · 2022&ndash;2023</div>
+                <div class="study-figure">14 år</div>
+                <div class="study-figure-label">Fra tidligste optegnelse til krise</div>
+                <div class="study-title">Fem fund, alle før nomineringen</div>
+                <p class="study-lede">Tre afskedigelser på ledelsesniveau i tre institutioner, en påstået forfalskning, et uangivet personalegode og klager fra over tredive tidligere kolleger.</p>
+            </a>
         </div>
-        <div class="checks-grid reveal">
-            <div class="check-item">
-                <div class="check-item-title">Sanktioner &amp; overvågningslister</div>
-                <p class="check-item-desc">Krydstjekket mod de konsoliderede OFAC-, FN-, UK OFSI- og EU-lister. Et aktivt match markeres altid, uanset rolle.</p>
-            </div>
-            <div class="check-item">
-                <div class="check-item-title">Negativ medieomtale</div>
-                <p class="check-item-desc">Screening af åbne kilder for kriminel, regulatorisk og omdømmemæssig risiko — vægtet efter alvor og aktualitet.</p>
-            </div>
-            <div class="check-item">
-                <div class="check-item-title">Selskabsregistre</div>
-                <p class="check-item-desc">Ledelsesposter, ejerandele og reelle ejere fra CVR og Companies House — også ophørte roller og selskaber, der gik konkurs i personens funktionsperiode.</p>
-            </div>
-            <div class="check-item">
-                <div class="check-item-title">Offentlige registre</div>
-                <p class="check-item-desc">Konkurskarantæne, insolvens- og konkursmeddelelser samt officielle tidender i de jurisdiktioner, emnet er forbundet til.</p>
-            </div>
-        </div>
+        <p class="callout">Sagsgennemgangene findes på engelsk.</p>
     </div>
 </section>
 
-<!-- Scoringsbaand -->
-<section class="bands-section section-light">
+<section class="cta">
     <div class="contain">
-        <div class="bands-header reveal">
-            <p class="label label-light">Scoringsmetode</p>
-            <h2>Tre udfald, en anbefaling.</h2>
-            <p>Hver kandidat scores 0-100. Resultatet bestemmer anbefalingen — og om menneskelig gennemgang er nødvendig, før du ser den.</p>
-        </div>
-        <div class="bands-row reveal">
-            <div class="band-item b-clear">
-                <div class="band-range">80-100</div>
-                <div class="band-name">Godkendt</div>
-                <p class="band-desc">Ingen væsentlige fund i de kilder, der blev nået. Frigivet efter gennemgang, som alle rapporter.</p>
-            </div>
-            <div class="band-item b-caution">
-                <div class="band-range">50-79</div>
-                <div class="band-name">Advarsel</div>
-                <p class="band-desc">Fund der kræver opmærksomhed. Et menneske gennemgår rapporten, før den når dig.</p>
-            </div>
-            <div class="band-item b-danger">
-                <div class="band-range">0-49</div>
-                <div class="band-name">Frarådes</div>
-                <p class="band-desc">Alvorlige fund identificeret. Gennemgået af et menneske og leveret med fuld kontekst.</p>
-            </div>
-        </div>
+        <h2>Stil et bedre spørgsmål.</h2>
+        <p class="prose">Previo er kun for inviterede, mens vi tager de første opgaver ind. Fortæl os, hvilken beslutning du står over for, så siger vi ærligt, om vi kan hjælpe med den.</p>
+        <a href="#" data-lead="contact" class="btn btn-primary">Anmod om adgang</a>
     </div>
 </section>
 
-<!-- Bund-CTA -->
-<section class="bottom-cta section-dark">
-    <div class="contain reveal">
-        <h2>Klar til smartere screening?</h2>
-        <a href="#hero" class="scroll-btn">
-            Få adgang
-            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4.5 15.75l7.5-7.5 7.5 7.5"/></svg>
-        </a>
-    </div>
-</section>
-
-<!-- Footer -->
-<footer>
-    <div class="footer-inner">
-        <div class="footer-left">
+<footer class="site-footer">
+    <div class="contain site-footer-inner">
+        <div>
             <p>&copy; 2026 NewNor Consulting ApS &middot; CVR 43419536 &middot; <a href="mailto:hello@previo-group.com">hello@previo-group.com</a></p>
         </div>
-        <div class="footer-right">
-            <a href="https://www.newnor.dk/" target="_blank" rel="noopener">Et produkt fra NewNor Consulting</a>
-            <a href="/privacy.html">Privatlivspolitik</a>
-            <a href="/terms.html">Vilkår</a>
+        <div class="footer-links">
+            <a href="/da/forsyningskaeder/">Forsyningskæder</a>
+            <a href="/da/personer/priser/">Priser</a>
+            <a href="/da/om/">Om</a>
+            <a href="/da/persondatapolitik/">Persondatapolitik</a>
+            <a href="/da/vilkaar/">Vilkår</a>
+            <a href="https://www.newnor.dk/" target="_blank" rel="noopener">NewNor Consulting</a>
         </div>
     </div>
 </footer>
 
-<script>
-    // Nav scroll
-    const nav = document.getElementById('mainNav');
-    window.addEventListener('scroll', () => {
-        nav.classList.toggle('scrolled', window.scrollY > 50);
-    }, { passive: true });
-
-    // Waitlist form
-    document.getElementById('waitlistForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const btn = this.querySelector('button');
-        btn.textContent = 'Indsender\u2026';
-        btn.disabled = true;
-        try {
-            const email = this.querySelector('input[name="email"]').value;
-            const res = await fetch(this.action, {
-                method: 'POST',
-                body: 'email=' + encodeURIComponent(email),
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-            });
-            if (res.ok) {
-                this.style.display = 'none';
-                document.getElementById('formSuccess').style.display = 'block';
-            } else {
-                btn.textContent = 'Få adgang';
-                btn.disabled = false;
-                alert('Noget gik galt. Prøv igen eller skriv til hello@previo-group.com');
-            }
-        } catch {
-            btn.textContent = 'Få adgang';
-            btn.disabled = false;
-            alert('Noget gik galt. Prøv igen eller skriv til hello@previo-group.com');
-        }
-    });
-
-    // Score card animation
-    function animateActiveCard() {
-        const active = document.querySelector('.candidate-slide:not(.hidden)');
-        if (!active) return;
-        const num = active.querySelector('.score-number-lg');
-        const rows = active.querySelectorAll('.check-row');
-        if (num) { num.classList.remove('animated'); void num.offsetWidth; }
-        rows.forEach(r => r.classList.remove('visible'));
-        requestAnimationFrame(() => {
-            if (num) num.classList.add('animated');
-            rows.forEach((row, i) => {
-                setTimeout(() => row.classList.add('visible'), 400 + i * 120);
-            });
-        });
-    }
-
-    // Card visibility observer
-    const cardStage = document.querySelector('.card-stage');
-    let cardAnimated = false;
-    const cardObs = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !cardAnimated) {
-                cardAnimated = true;
-                animateActiveCard();
-                cardObs.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.3 });
-    if (cardStage) cardObs.observe(cardStage);
-
-    // Candidate rotation
-    const slides = document.querySelectorAll('.candidate-slide');
-    let current = 0;
-    const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (slides.length > 1 && !noMotion) {
-        setInterval(() => {
-            slides[current].classList.add('hidden');
-            current = (current + 1) % slides.length;
-            slides[current].classList.remove('hidden');
-            animateActiveCard();
-        }, 5000);
-    }
-    if (noMotion) document.querySelectorAll('.check-row').forEach(r => r.classList.add('visible'));
-
-    // Scroll reveal
-    const reveals = document.querySelectorAll('.reveal');
-    const revObs = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                revObs.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.12 });
-    reveals.forEach(el => revObs.observe(el));
-</script>
-
+<script src="/assets/chrome.js" defer></script>
+<script src="/assets/lead-form.js" defer></script>
 </body>
 </html>

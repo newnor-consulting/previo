@@ -1,0 +1,22 @@
+<!--
+  Previo mark — favicon and app icon ONLY.
+
+  docs/business/brand-guidelines.md permits the "P" mark here and forbids it on
+  the page itself, where the wordmark "Previo." is used instead. This is that
+  one permitted use.
+
+  Built in the house grammar rather than the old icon's: no gradient, no
+  rounded corners, and only canonical palette values, so it passes
+  scripts/check_design_tokens.py. The teal square is the wordmark's period.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Previo">
+  <rect width="64" height="64" fill="#0c0d0f"/>
+  <!-- stem -->
+  <rect x="16" y="14" width="9" height="36" fill="#fafaf8"/>
+  <!-- bowl: three bars, squared off, no curve -->
+  <rect x="25" y="14" width="17" height="9" fill="#fafaf8"/>
+  <rect x="33" y="14" width="9" height="22" fill="#fafaf8"/>
+  <rect x="25" y="27" width="17" height="9" fill="#fafaf8"/>
+  <!-- the period, in the one accent -->
+  <rect x="33" y="41" width="9" height="9" fill="#0d9488"/>
+</svg>

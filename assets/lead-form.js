@@ -54,7 +54,7 @@
             '    <label>' + COPY.email + '<input type="email" name="email" required autocomplete="email"></label>' +
             '    <label>' + COPY.company + '<input type="text" name="company" autocomplete="organization"></label>' +
             '    <label>' + COPY.message + '<textarea name="message" rows="3"></textarea></label>' +
-            '    <button type="submit" class="btn btn-teal lead-form-submit">' + COPY.send + '</button>' +
+            '    <button type="submit" class="btn btn-primary lead-form-submit">' + COPY.send + '</button>' +
             '    <p class="lead-form-note" hidden></p>' +
             '  </form>' +
             '</div>';

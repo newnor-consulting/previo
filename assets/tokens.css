@@ -1,0 +1,155 @@
+/* ---------------------------------------------------------------------------
+   Previo — design tokens for the public site.
+
+   The ten palette values below are copied VERBATIM from
+   backend/app/templates/base_report.html, which is the origin. This file is the
+   FIFTH copy in the repo (the report template, frontend/src/app/globals.css,
+   provenance/src/app/globals.css, provenance/src/app/icon.svg, and here).
+
+   The copies cannot be de-duplicated: Vercel root directories keep the two
+   frontends from sharing a file, the WeasyPrint template must be
+   self-contained, and this file is served to a static GitHub Pages host with no
+   build step. They are pinned instead — scripts/check_design_tokens.py checks
+   every declaration AND every hex literal, and the design-tokens job in
+   .github/workflows/ci.yml runs it on every push.
+
+   DO NOT hand-edit a value here. Change it in the report template, then land
+   the same change in all five copies in one commit.
+
+   Every other file under site/ must contain NO colour at all. That invariant is
+   what keeps this the single place a palette can live; it replaced seven
+   duplicate palettes spread across inline <style> blocks.
+   --------------------------------------------------------------------------- */
+
+/* --- Typefaces. Self-hosted, so no page makes a third-party request. -------
+   Previously every page pulled these from fonts.googleapis.com, including the
+   privacy policy. Both families are SIL OFL; see assets/fonts/OFL.txt.
+   DM Sans is a variable font, so one file covers 400-600. */
+
+@font-face {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/assets/fonts/dm-sans-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/assets/fonts/dm-sans-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/instrument-serif-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/instrument-serif-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* --- The palette, light ---------------------------------------------------- */
+
+:root {
+  --ink: #1a1b1e;
+  --black: #0c0d0f;
+  --paper: #fafaf8;
+  --ivory: #f5f3ef;
+  --rule: #e4e2dd;
+  --rule-strong: #c9c6be;
+  --mid: #8a8a86;
+  --dim: #5a5a57;
+  --teal: #0d9488;
+  --severe: #8b2e2a;
+
+  --font-sans: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+
+  /* Type. The report and the Provenance app run a dense 12.67px body derived
+     from the PDF's point scale; a marketing page is read at arm's length and on
+     phones, so this scale is deliberately larger. The FAMILIES, the palette and
+     the hairline grammar are what make the surfaces one system — not the
+     absolute sizes. */
+  --t-micro: 0.7rem;
+  --t-caption: 0.8rem;
+  --t-body: 1rem;
+  --t-lede: 1.15rem;
+  --t-section: 1.35rem;
+  --t-title: clamp(2rem, 4vw, 3.2rem);
+  --t-display: clamp(2.4rem, 5vw, 3.9rem);
+
+  --s-1: 0.35rem;
+  --s-2: 0.7rem;
+  --s-3: 1.15rem;
+  --s-4: 2rem;
+  --s-5: 3.4rem;
+  --s-6: 5.6rem;
+  --s-7: 8rem;
+
+  --measure: 34rem;      /* prose column: ~68 characters at --t-body */
+  --contain: 68rem;
+  --contain-wide: 82rem;
+}
+
+/* --- The palette, dark -----------------------------------------------------
+   A token swap, nothing else. --rule is deliberately NOT the naive inversion of
+   #e4e2dd: a hairline at the inverted value is invisible on a dark ground on
+   many displays, which silently destroys the whole rule hierarchy — and the
+   rules are the grammar here, so losing them loses the design. */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #f0eee9;
+    --black: #ffffff;
+    --paper: #0c0d0f;
+    --ivory: #141518;
+    --rule: #2a2c30;
+    --rule-strong: #383a3e;
+    --mid: #6e6e6b;
+    --dim: #9a9a96;
+    --teal: #14b8a6;
+    --severe: #c4564f;
+  }
+}
+
+/* --- Print -----------------------------------------------------------------
+   One deliberate override: a sheet printed on #fafaf8 carries a faint ink wash
+   across the whole page, so paper goes pure white. Registered as a named print
+   override in scripts/check_design_tokens.py, not silenced. */
+
+@media print {
+  :root {
+    --ink: #1a1b1e;
+    --black: #0c0d0f;
+    --paper: #ffffff;
+    --ivory: #f5f3ef;
+    --rule: #e4e2dd;
+    --rule-strong: #c9c6be;
+    --mid: #8a8a86;
+    --dim: #5a5a57;
+    --teal: #0d9488;
+    --severe: #8b2e2a;
+  }
+}

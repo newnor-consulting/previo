@@ -1,0 +1,708 @@
+/* ---------------------------------------------------------------------------
+   Previo — page components.
+
+   Loaded after tokens.css and base.css. No colour literals: every value is a
+   token. Zero radius and no fills throughout — the grammar is hairline rules,
+   generous space, and one accent used sparingly.
+   --------------------------------------------------------------------------- */
+
+/* --- Hero ------------------------------------------------------------------ */
+
+.hero {
+  padding: var(--s-7) 0 var(--s-6);
+}
+
+.hero h1 {
+  /* Wide enough that the authored <br> controls the break rather than the
+     measure fighting it. */
+  max-width: 24ch;
+  margin-bottom: var(--s-4);
+}
+
+.hero .lede {
+  max-width: 44ch;
+  margin-bottom: var(--s-4);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin-bottom: var(--s-5);
+}
+
+.hero-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  font-size: var(--t-micro);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mid);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--rule);
+}
+
+/* --- Stat row -------------------------------------------------------------- */
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-5);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--rule);
+}
+
+.stat-value {
+  font-family: var(--font-serif);
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.stat-label {
+  font-size: var(--t-caption);
+  color: var(--mid);
+  max-width: 22ch;
+  margin-top: var(--s-1);
+}
+
+/* --- The source register ---------------------------------------------------
+   The anti-overspill device. Each product line carries its own register, and a
+   source name may appear in that page's prose ONLY if it appears in this table
+   on the same page. scripts/check_site.py enforces both halves. */
+
+.register {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--t-caption);
+  margin-bottom: var(--s-3);
+}
+
+.register th {
+  text-align: left;
+  font-weight: 500;
+  font-size: var(--t-micro);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mid);
+  padding: 0 var(--s-3) var(--s-2) 0;
+  border-bottom: 1px solid var(--rule-strong);
+  white-space: nowrap;
+}
+
+.register td {
+  padding: var(--s-2) var(--s-3) var(--s-2) 0;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+  color: var(--dim);
+}
+
+.register td:first-child {
+  color: var(--ink);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.register-scroll {
+  overflow-x: auto;
+}
+
+/* --- The coverage statement ------------------------------------------------
+   Sources reached, sources not reached. The house doctrine is that the gap is a
+   finding, not a caveat, so it is set at the same weight as everything else. */
+
+.coverage {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--s-4);
+  padding: var(--s-4) 0;
+  border-top: 1px solid var(--rule-strong);
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.coverage-col h3 {
+  font-family: var(--font-sans);
+  font-size: var(--t-micro);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: var(--s-2);
+}
+
+.coverage-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: var(--t-caption);
+  color: var(--dim);
+}
+
+.coverage-col li {
+  padding: var(--s-1) 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* --- Product-line tiles ---------------------------------------------------- */
+
+.lines {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--s-4);
+}
+
+.line-tile {
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--rule-strong);
+}
+
+.line-tile h3 {
+  margin-bottom: var(--s-2);
+}
+
+.line-tile p {
+  font-size: var(--t-caption);
+  color: var(--dim);
+  margin-bottom: var(--s-2);
+}
+
+/* --- Numbered steps and the pipeline --------------------------------------- */
+
+.steps {
+  display: grid;
+  gap: 0;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: var(--s-3);
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.step:first-child {
+  border-top: 1px solid var(--rule);
+}
+
+.step-num {
+  font-family: var(--font-serif);
+  font-size: var(--t-section);
+  color: var(--mid);
+  line-height: 1.2;
+}
+
+.step-title {
+  font-weight: 500;
+  margin-bottom: var(--s-1);
+}
+
+.step-desc {
+  font-size: var(--t-caption);
+  color: var(--dim);
+  margin: 0;
+  max-width: 52ch;
+}
+
+/* --- Two-column split ------------------------------------------------------ */
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+  gap: var(--s-5);
+  align-items: start;
+}
+
+@media (max-width: 52rem) {
+  .split {
+    grid-template-columns: 1fr;
+    gap: var(--s-4);
+  }
+}
+
+/* --- Check / feature grid -------------------------------------------------- */
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: var(--s-4) var(--s-5);
+}
+
+.grid-item {
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--rule);
+}
+
+.grid-item h3 {
+  font-family: var(--font-sans);
+  font-size: var(--t-body);
+  font-weight: 500;
+  letter-spacing: 0;
+  margin-bottom: var(--s-2);
+}
+
+.grid-item p {
+  font-size: var(--t-caption);
+  color: var(--dim);
+  margin: 0;
+}
+
+.source-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1) var(--s-2);
+  margin-top: var(--s-2);
+  font-size: var(--t-micro);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mid);
+}
+
+.source-chips span::after {
+  content: " ·";
+}
+
+.source-chips span:last-child::after {
+  content: "";
+}
+
+/* --- Score bands -----------------------------------------------------------
+   No traffic light. The bands are ordinal and read top to bottom; position
+   carries the meaning, so it survives without colour and is colour-blind safe.
+   The one accent marks the band that stops a process, not every band. */
+
+.band {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  gap: var(--s-3);
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.band:first-child {
+  border-top: 1px solid var(--rule);
+}
+
+.band-range {
+  font-family: var(--font-serif);
+  font-size: var(--t-section);
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.band-name {
+  font-weight: 500;
+  margin-bottom: var(--s-1);
+}
+
+.band-severe .band-name {
+  color: var(--severe);
+}
+
+.band-desc {
+  font-size: var(--t-caption);
+  color: var(--dim);
+  margin: 0;
+}
+
+/* --- Plans ----------------------------------------------------------------- */
+
+.plans {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--s-5);
+}
+
+.plan {
+  border-top: 1px solid var(--rule-strong);
+  padding-top: var(--s-3);
+}
+
+.plan-name {
+  font-family: var(--font-serif);
+  font-size: var(--t-section);
+  margin-bottom: var(--s-2);
+}
+
+.plan-desc {
+  font-size: var(--t-caption);
+  color: var(--dim);
+}
+
+.plan ul {
+  list-style: none;
+  padding: 0;
+  font-size: var(--t-caption);
+  color: var(--dim);
+}
+
+.plan li {
+  padding: var(--s-1) 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* --- FAQ ------------------------------------------------------------------- */
+
+.faq-item {
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.faq-item:first-child {
+  border-top: 1px solid var(--rule);
+}
+
+.faq-q {
+  font-weight: 500;
+  margin-bottom: var(--s-1);
+}
+
+.faq-a {
+  font-size: var(--t-caption);
+  color: var(--dim);
+  margin: 0;
+  max-width: 58ch;
+}
+
+/* --- Study cards ----------------------------------------------------------- */
+
+.studies {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: var(--s-5);
+}
+
+.study-card {
+  display: block;
+  border-top: 1px solid var(--rule-strong);
+  padding-top: var(--s-3);
+  color: inherit;
+  text-decoration: none;
+}
+
+.study-card:hover {
+  text-decoration: none;
+}
+
+.study-card:hover .study-title {
+  color: var(--teal);
+}
+
+.study-kicker {
+  font-size: var(--t-micro);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: var(--s-2);
+}
+
+.study-figure {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.study-figure-label {
+  font-size: var(--t-micro);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: var(--s-3);
+}
+
+.study-title {
+  font-family: var(--font-serif);
+  font-size: var(--t-section);
+  line-height: 1.2;
+  margin-bottom: var(--s-2);
+  transition: color 0.18s ease;
+}
+
+.study-lede {
+  font-size: var(--t-caption);
+  color: var(--dim);
+}
+
+/* --- Timeline -------------------------------------------------------------- */
+
+.timeline-entry {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: var(--s-3);
+  padding: var(--s-4) 0;
+  border-bottom: 1px solid var(--rule);
+  break-inside: avoid;
+}
+
+.timeline-entry:first-child {
+  border-top: 1px solid var(--rule);
+}
+
+.timeline-date {
+  font-size: var(--t-caption);
+  font-weight: 500;
+  color: var(--mid);
+  letter-spacing: 0.04em;
+}
+
+.timeline-body h3 {
+  font-family: var(--font-sans);
+  font-size: var(--t-body);
+  font-weight: 500;
+  letter-spacing: 0;
+  margin-bottom: var(--s-2);
+}
+
+.timeline-body p {
+  font-size: var(--t-caption);
+  color: var(--dim);
+  max-width: 58ch;
+}
+
+.timeline-source {
+  font-size: var(--t-micro);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mid);
+}
+
+@media (max-width: 40rem) {
+  .timeline-entry,
+  .step,
+  .band {
+    grid-template-columns: 1fr;
+    gap: var(--s-2);
+  }
+}
+
+/* --- The record card -------------------------------------------------------
+   What was in the public record, and when. Deliberately NOT a score card: no
+   number, no band, no deduction column. */
+
+.record {
+  border: 1px solid var(--rule-strong);
+  padding: var(--s-4);
+  max-width: 44rem;
+}
+
+.record-label {
+  font-size: var(--t-micro);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: var(--s-3);
+}
+
+.record-subject {
+  font-family: var(--font-serif);
+  font-size: var(--t-section);
+  margin-bottom: var(--s-1);
+}
+
+.record-context {
+  font-size: var(--t-caption);
+  color: var(--mid);
+  margin-bottom: var(--s-3);
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--rule);
+}
+
+.record-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--s-3);
+  font-size: var(--t-caption);
+}
+
+.record-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-2) 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.record-when {
+  color: var(--mid);
+  white-space: nowrap;
+}
+
+.record-note {
+  font-size: var(--t-micro);
+  line-height: 1.6;
+  color: var(--mid);
+  margin: 0;
+}
+
+/* --- Callout ---------------------------------------------------------------
+   A single hairline-ruled aside. Used for the method statement and for the
+   permanent illustrative-dataset marker on specimen pages, which may never be
+   hidden or clipped. */
+
+.callout {
+  border-left: 2px solid var(--rule-strong);
+  padding: var(--s-2) 0 var(--s-2) var(--s-3);
+  font-size: var(--t-caption);
+  color: var(--dim);
+  max-width: var(--measure);
+}
+
+.callout-marker {
+  border-left-color: var(--severe);
+  color: var(--ink);
+}
+
+/* --- CTA ------------------------------------------------------------------- */
+
+.cta {
+  padding: var(--s-6) 0;
+  border-top: 1px solid var(--rule-strong);
+}
+
+.cta h2 {
+  max-width: 16ch;
+  margin-bottom: var(--s-4);
+}
+
+/* --- Lead-capture modal ----------------------------------------------------
+   Styles for the modal built by assets/lead-form.js. It is the ONE lead
+   mechanism on the site; the raw urlencoded form that used to sit on the two
+   homepages has been removed in favour of it. */
+
+.lead-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: none;
+}
+
+.lead-modal.open {
+  display: block;
+}
+
+.lead-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--black);
+  opacity: 0.55;
+}
+
+.lead-modal-card {
+  position: relative;
+  max-width: 30rem;
+  margin: 6vh auto 0;
+  background: var(--paper);
+  border: 1px solid var(--rule-strong);
+  padding: var(--s-4);
+  max-height: 88vh;
+  overflow-y: auto;
+}
+
+.lead-modal-card h3 {
+  font-family: var(--font-serif);
+  font-size: var(--t-section);
+  margin-bottom: var(--s-2);
+}
+
+.lead-modal-sub {
+  font-size: var(--t-caption);
+  color: var(--dim);
+  margin-bottom: var(--s-4);
+}
+
+.lead-modal-close {
+  position: absolute;
+  top: var(--s-2);
+  right: var(--s-2);
+  background: none;
+  border: 0;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--mid);
+  cursor: pointer;
+  padding: var(--s-1);
+}
+
+.lead-modal-close:hover {
+  color: var(--ink);
+}
+
+.lead-form label {
+  display: block;
+  font-size: var(--t-micro);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: var(--s-3);
+}
+
+.lead-form input:not([type="hidden"]):not([name="website"]),
+.lead-form textarea {
+  display: block;
+  width: 100%;
+  margin-top: var(--s-1);
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--t-body);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.lead-form input:focus,
+.lead-form textarea:focus {
+  outline: none;
+  border-color: var(--teal);
+}
+
+.lead-form-submit {
+  width: 100%;
+  justify-content: center;
+  margin-top: var(--s-1);
+}
+
+.lead-form-note {
+  margin: var(--s-3) 0 0;
+  font-size: var(--t-caption);
+  line-height: 1.55;
+}
+
+.lead-form-note.err {
+  color: var(--severe);
+}
+
+/* --- Case-study extras ----------------------------------------------------- */
+
+.timeline-date-main {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.timeline-date-sub {
+  font-size: var(--t-micro);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-top: var(--s-1);
+}
+
+.timeline-entry-after .timeline-date-main,
+.timeline-entry-after .timeline-body h3 {
+  color: var(--mid);
+}
+
+.pull {
+  font-family: var(--font-serif);
+  font-size: var(--t-section);
+  line-height: 1.35;
+  color: var(--ink);
+  max-width: 40ch;
+  padding-left: var(--s-3);
+  border-left: 2px solid var(--rule-strong);
+  margin: var(--s-4) 0;
+}
