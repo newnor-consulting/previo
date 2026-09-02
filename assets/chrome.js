@@ -654,6 +654,16 @@
       // has crossed the svg. Where CSS drives the stroke this value goes unread
       // and the loop is here only to light the nodes.
       var p = clamp01((0.6 * vh - box.top) / (box.height || 1));
+
+      // The scope ends above the footer, so the reading line can never reach
+      // its last few per cent and the final node, the one under the signature,
+      // would stay hollow however far the page is scrolled. The thread is the
+      // path a finding travels and it has to arrive, so once the document is
+      // scrolled out, it is complete by definition.
+      var docEl = doc.documentElement;
+      var remaining = docEl.scrollHeight - (window.pageYOffset || docEl.scrollTop) - vh;
+      if (remaining <= 2) p = 1;
+
       svg.style.setProperty("--progress", p.toFixed(3));
       for (var i = 0; i < nodes.length; i++) {
         nodes[i].el.classList.toggle("is-threaded", p >= nodes[i].at);
