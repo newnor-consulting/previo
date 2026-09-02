@@ -57,7 +57,13 @@
   font-family: var(--font-serif);
   font-size: 2.6rem;
   line-height: 1;
-  color: var(--ink);
+  color: var(--black);
+}
+
+/* A column in .stats. Kept narrow enough that four sit on one line at 1440. */
+.stat {
+  flex: 0 0 auto;
+  min-width: 6rem;
 }
 
 .stat-label {
@@ -101,6 +107,32 @@
 .register td:first-child {
   color: var(--ink);
   font-weight: 500;
+  white-space: nowrap;
+  border-left: 2px solid transparent;
+  padding-left: var(--s-2);
+  transition: border-color var(--d-fast) var(--ease-out);
+}
+
+/* The register is the credibility device, so it behaves like a document you can
+   run a finger down: the whole row takes the toned ground and the leading rule
+   goes strong. No highlight colour, no zebra. */
+.register tbody tr {
+  transition: background-color var(--d-fast) var(--ease-out);
+}
+
+.register tbody tr:hover {
+  background: var(--ivory);
+}
+
+.register tbody tr:hover td:first-child {
+  border-left-color: var(--rule-strong);
+}
+
+/* Third column is the reach: how far back, how often. A measurement, so mono. */
+.register td:nth-child(3) {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.01em;
   white-space: nowrap;
 }
 
@@ -187,14 +219,17 @@
 }
 
 .step-num {
-  font-family: var(--font-serif);
-  font-size: var(--t-section);
+  font-family: var(--font-mono);
+  font-size: var(--t-caption);
+  letter-spacing: 0.1em;
   color: var(--mid);
-  line-height: 1.2;
+  line-height: 1.9;
+  transition: color var(--d-base) var(--ease-out);
 }
 
 .step-title {
   font-weight: 500;
+  color: var(--black);
   margin-bottom: var(--s-1);
 }
 
@@ -285,10 +320,11 @@
 }
 
 .band-range {
-  font-family: var(--font-serif);
-  font-size: var(--t-section);
-  color: var(--ink);
-  line-height: 1.2;
+  font-family: var(--font-mono);
+  font-size: var(--t-caption);
+  letter-spacing: 0.06em;
+  color: var(--black);
+  line-height: 1.9;
 }
 
 .band-name {
@@ -390,6 +426,7 @@
 }
 
 .study-kicker {
+  font-family: var(--font-mono);
   font-size: var(--t-micro);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -401,7 +438,7 @@
   font-family: var(--font-serif);
   font-size: 2.2rem;
   line-height: 1;
-  color: var(--ink);
+  color: var(--black);
 }
 
 .study-figure-label {
@@ -462,10 +499,10 @@
 }
 
 .timeline-source {
+  font-family: var(--font-mono);
   font-size: var(--t-micro);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--mid);
+  letter-spacing: 0.06em;
+  color: var(--dim);
 }
 
 @media (max-width: 40rem) {
@@ -525,8 +562,16 @@
 }
 
 .record-when {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
   color: var(--mid);
   white-space: nowrap;
+}
+
+/* The other half of a record row: what the record said. */
+.record-what {
+  flex: 1;
+  color: var(--ink);
 }
 
 .record-note {
@@ -566,6 +611,34 @@
   margin-bottom: var(--s-4);
 }
 
+/* The closing call to action on its own dark ground: one heading, one button,
+   centred, and nothing else competing. */
+.cta[data-theme] {
+  padding: var(--s-7) 0;
+  border-top: 0;
+  text-align: center;
+}
+
+.cta[data-theme] h2 {
+  max-width: 20ch;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: var(--t-display);
+}
+
+.cta[data-theme] .lede,
+.cta[data-theme] p {
+  max-width: 46ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta[data-theme] .hero-actions,
+.cta[data-theme] .cta-actions {
+  justify-content: center;
+  margin-bottom: 0;
+}
+
 /* --- Lead-capture modal ----------------------------------------------------
    Styles for the modal built by assets/lead-form.js. It is the ONE lead
    mechanism on the site; the raw urlencoded form that used to sit on the two
@@ -576,10 +649,22 @@
   inset: 0;
   z-index: 200;
   display: none;
+  opacity: 0;
+  transition: opacity 240ms var(--ease-out);
 }
 
+/* Two classes, two jobs: `open` is the display switch and `is-open` carries
+   the motion. The split is what gives the transition a start state — the node
+   is displayed at opacity 0 with its card 16px low for one frame, and only
+   then does lead-form.js add `is-open` and let it settle. Collapsing the two
+   into one class means the modal is already at its final values on the first
+   painted frame and nothing animates. */
 .lead-modal.open {
   display: block;
+}
+
+.lead-modal.is-open {
+  opacity: 1;
 }
 
 .lead-modal-backdrop {
@@ -591,6 +676,8 @@
 
 .lead-modal-card {
   position: relative;
+  transform: translateY(16px);
+  transition: transform 240ms var(--ease-out);
   max-width: 30rem;
   margin: 6vh auto 0;
   background: var(--paper);
@@ -679,7 +766,11 @@
 /* --- Case-study extras ----------------------------------------------------- */
 
 .timeline-date-main {
-  font-weight: 500;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--ink);
 }
 
@@ -705,4 +796,553 @@
   padding-left: var(--s-3);
   border-left: 2px solid var(--rule-strong);
   margin: var(--s-4) 0;
+}
+
+/* ===========================================================================
+   THE REBRAND LAYER — 2026-09-02
+   Everything below was added for "The record, read.": the dark hero and its
+   resolve piece, the stat band, the method track, the case-study timeline, and
+   the motion states the JavaScript in chrome.js and hero.js drives.
+
+   Two rules hold throughout: no colour literal ever appears here (tokens only,
+   and tokens.css is the single place a hex may live under site/), and every
+   moving thing has a finished state that is reached with the script dead or
+   with prefers-reduced-motion set.
+   =========================================================================== */
+
+/* --- Hero on a dark ground -------------------------------------------------
+   The hero opens every page. On its own ground it takes extra air above,
+   because the sticky nav sits over it. Above 62rem the copy holds the left
+   column and the resolve piece the right; below that the piece stacks under. */
+
+.hero[data-theme] {
+  padding-top: calc(var(--s-7) + var(--s-4));
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-5);
+  align-items: center;
+}
+
+.hero-copy {
+  min-width: 0;
+}
+
+@media (min-width: 62rem) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: var(--s-5);
+  }
+}
+
+/* --- The resolve piece -----------------------------------------------------
+   An inline <svg viewBox="0 0 640 400"> authored by WP4 in index.html and
+   da/index.html. Every colour arrives through `color:` on these classes with
+   stroke="currentColor" or fill="currentColor" in the markup, so the piece
+   inverts with the section like everything else.
+
+   Sizes are px against the 640x400 viewBox: the subject name is 22, the ghost
+   names 16, mono labels 11.
+
+   The DEFAULT state of every class below is the FINISHED frame. Only
+   `.js .hero-piece:not(.is-done)` hides or un-draws anything, so with no
+   JavaScript, with the script broken, or with reduced motion the reader gets
+   the whole piece at once and nothing is invisible. */
+
+.hero-piece {
+  display: block;
+  width: 100%;
+  max-width: 40rem;
+  aspect-ratio: 16 / 10;
+  overflow: visible;
+  color: var(--ink);
+}
+
+.hp-namesakes,
+.hp-subject,
+.hp-rules,
+.hp-findings,
+.hp-sources,
+.hp-signature {
+  fill: none;
+}
+
+.hp-name {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  fill: currentColor;
+  color: var(--ink);
+}
+
+.hp-name--ghost {
+  font-size: 16px;
+  color: var(--mid);
+}
+
+.hp-id,
+.hp-date,
+.hp-source,
+.hp-punch {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  fill: currentColor;
+  color: var(--dim);
+}
+
+.hp-finding {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  fill: currentColor;
+  color: var(--ink);
+  transition: color var(--d-fast) var(--ease-out);
+}
+
+.hp-rule,
+.hp-connector,
+.hp-sign-rule {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.hp-rule {
+  color: var(--rule-strong);
+}
+
+.hp-connector {
+  color: var(--rule);
+  transition: color var(--d-fast) var(--ease-out);
+}
+
+/* The one element per piece that carries the finding gets the oxblood. */
+.hp-punch--severe {
+  color: var(--severe);
+}
+
+.hp-sign {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  fill: currentColor;
+  color: var(--ink);
+}
+
+.hp-sign-rule {
+  color: var(--teal);
+}
+
+/* Pre-animation states. Lines carry pathLength="1", so one dash of length 1
+   offset by 1 is an undrawn line whatever its real length. */
+.js .hero-piece:not(.is-done) .hp-rule,
+.js .hero-piece:not(.is-done) .hp-connector,
+.js .hero-piece:not(.is-done) .hp-sign-rule {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.js .hero-piece:not(.is-done) .hp-finding,
+.js .hero-piece:not(.is-done) .hp-punch,
+.js .hero-piece:not(.is-done) .hp-name--ghost {
+  opacity: 0;
+}
+
+/* Hover reads one finding at a time: the row under the pointer brightens, the
+   others step back to --mid, and the connector inside that row goes teal. */
+.hp-findings:hover .hp-finding:not(:hover),
+.hp-findings:focus-within .hp-finding:not(:focus-within) {
+  color: var(--mid);
+}
+
+.hp-finding:hover,
+.hp-finding:focus-within {
+  color: var(--ink);
+}
+
+.hp-finding:hover .hp-connector,
+.hp-finding:focus-within .hp-connector,
+.hp-connector.is-linked {
+  color: var(--teal);
+}
+
+@media (max-width: 40rem) {
+  .hp-namesakes,
+  .hp-source {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .hero-piece .hp-rule,
+  .js .hero-piece .hp-connector,
+  .js .hero-piece .hp-sign-rule {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+
+  .js .hero-piece .hp-finding,
+  .js .hero-piece .hp-punch,
+  .js .hero-piece .hp-name--ghost {
+    opacity: 1;
+  }
+
+  .hp-finding,
+  .hp-connector {
+    transition: none;
+  }
+}
+
+/* --- Stat band -------------------------------------------------------------
+   The documentary device on a dark section: four figures, hairline-separated,
+   each with one line of caption. Wraps to two columns on a phone. */
+
+.stat-band {
+  display: flex;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--rule);
+}
+
+.stat-band > * {
+  flex: 1 1 11rem;
+  min-width: 0;
+  padding: var(--s-4) var(--s-4) var(--s-4) var(--s-3);
+  border-left: 1px solid var(--rule);
+}
+
+.stat-band > *:first-child {
+  border-left: 0;
+  padding-left: 0;
+}
+
+.stat-figure {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  line-height: 1;
+  color: var(--black);
+}
+
+.stat-note {
+  font-size: var(--t-caption);
+  line-height: 1.45;
+  color: var(--dim);
+  max-width: 18ch;
+  margin-top: var(--s-2);
+}
+
+@media (max-width: 40rem) {
+  .stat-band > * {
+    flex: 1 1 45%;
+    padding: var(--s-3);
+    border-left: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .stat-band > *:first-child {
+    padding-left: var(--s-3);
+  }
+}
+
+/* --- Method track ----------------------------------------------------------
+   The five steps sit against a rail that fills with reading position. Where
+   scroll-driven animation exists the rail fills itself; where it does not,
+   chrome.js adds .is-tracked and the same fill runs on a transition. */
+
+.steps--tracked {
+  position: relative;
+  padding-left: var(--s-4);
+}
+
+.steps--tracked::before,
+.steps--tracked::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+}
+
+.steps--tracked::before {
+  background: var(--rule);
+}
+
+.steps--tracked::after {
+  background: var(--ink);
+  transform: scaleY(1);
+  transform-origin: top;
+}
+
+/* The fallback reads chrome.js's --progress (0 to 1, published on the
+   container as the reader descends it); .is-tracked is the coarser hook for a
+   caller that only wants the rail filled. */
+.js .steps--tracked::after {
+  transform: scaleY(var(--progress, 0));
+  transition: transform 120ms linear;
+}
+
+.js .steps--tracked.is-tracked::after {
+  transform: scaleY(1);
+}
+
+@supports (animation-timeline: view()) {
+  .js .steps--tracked::after {
+    transition: none;
+    animation: previo-fill-y linear both;
+    animation-timeline: view();
+    animation-range: entry 60% cover 85%;
+  }
+}
+
+.step.is-active .step-num {
+  color: var(--ink);
+}
+
+@keyframes previo-fill-y {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@media (max-width: 40rem) {
+  .steps--tracked {
+    padding-left: var(--s-3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .steps--tracked::after {
+    transform: scaleY(1);
+    transition: none;
+    animation: none;
+  }
+}
+
+/* --- The case-study timeline ----------------------------------------------
+   The showpiece. A vertical hairline runs the length of the record and draws
+   as the reader descends it; entries are a mono date column against the body;
+   the flag is TALLY STROKES and a word, never a coloured chip. */
+
+.timeline {
+  position: relative;
+  padding-left: var(--s-4);
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--rule-strong);
+  transform: scaleY(1);
+  transform-origin: top;
+}
+
+.js .timeline::before {
+  transform: scaleY(0);
+  transition: transform 1200ms var(--ease-out);
+}
+
+.js .timeline.is-drawn::before {
+  transform: scaleY(1);
+}
+
+@supports (animation-timeline: view()) {
+  .js .timeline::before {
+    transition: none;
+    animation: previo-fill-y linear both;
+    animation-timeline: view();
+    animation-range: entry 90% cover 70%;
+  }
+}
+
+.timeline-header {
+  padding-bottom: var(--s-3);
+}
+
+.timeline-header h2,
+.timeline-header h3 {
+  margin-bottom: var(--s-2);
+}
+
+.timeline-header p {
+  font-size: var(--t-caption);
+  color: var(--dim);
+  max-width: 58ch;
+  margin: 0;
+}
+
+/* The single most severe entry on the page. It is the only place the oxblood
+   takes area, which is what makes it read as a finding rather than a style. */
+.timeline-entry--severe .timeline-date-main,
+.timeline-entry--severe .timeline-flag {
+  color: var(--severe);
+}
+
+.timeline-entry--severe {
+  border-left: 2px solid var(--severe);
+  margin-left: calc(var(--s-4) * -1);
+  padding-left: calc(var(--s-4) - 2px);
+}
+
+.timeline-flag {
+  display: inline-block;
+  margin-top: var(--s-2);
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+/* Tally strokes, not colour: one hairline for caution, two for do-not-proceed.
+   The second stroke is the right border of the same pseudo-element, so there
+   is no extra element and no dot, pill or chip anywhere near it. */
+.timeline-flag::before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0.8em;
+  margin-right: 0.6em;
+  vertical-align: -0.08em;
+  border-left: 1px solid currentColor;
+}
+
+.flag-danger::before {
+  width: 3px;
+  border-right: 1px solid currentColor;
+}
+
+.narrative {
+  max-width: 58ch;
+  color: var(--dim);
+}
+
+.narrative h2,
+.narrative h3,
+.narrative strong {
+  color: var(--black);
+}
+
+/* --- Aftermath grid --------------------------------------------------------
+   Four hairline-topped cells. The value is display serif in true black; the
+   label is the caption under it. */
+
+.aftermath-cell {
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--rule-strong);
+}
+
+.aftermath-cell-value {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  line-height: 1.05;
+  color: var(--black);
+  margin-bottom: var(--s-2);
+}
+
+.aftermath-cell-label {
+  font-size: var(--t-caption);
+  line-height: 1.5;
+  color: var(--dim);
+}
+
+/* --- Legacy label variants -------------------------------------------------
+   .label-dark and .label-light predate data-theme and are being removed from
+   the markup by WP5 and WP6. Until then they must render exactly like .label
+   rather than as unstyled body text. */
+
+.label-dark,
+.label-light {
+  font-size: var(--t-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin: 0 0 var(--s-3);
+  font-weight: 500;
+}
+
+/* --- Lead modal, continued -------------------------------------------------
+   The card rises 16px into place on `is-open`, one frame after `open` put it
+   on screen — the same two-step as the backdrop's fade above. */
+
+.lead-modal.is-open .lead-modal-card {
+  transform: none;
+}
+
+/* Honeypot: reachable by a bot, invisible and out of the way for a person.
+   Replaces the inline style string lead-form.js used to inject. */
+.lead-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lead-modal,
+  .lead-modal-card {
+    transition: none;
+  }
+
+  /* No transition to give a start state to, so `open` alone is enough: the
+     modal is at its final values on the frame it appears. */
+  .lead-modal.open {
+    opacity: 1;
+  }
+
+  .lead-modal-card {
+    transform: none;
+  }
+
+  .js .timeline::before {
+    transform: scaleY(1);
+    transition: none;
+    animation: none;
+  }
+
+  .register tbody tr,
+  .register td:first-child,
+  .step-num,
+  .study-title {
+    transition: none;
+  }
+}
+
+/* --- Print -----------------------------------------------------------------
+   A printed page has no scroll and no script timeline, so every progressive
+   state resolves to its finished frame. The !important here matches the print
+   block in base.css: it is the one place the cascade is overruled outright. */
+
+@media print {
+  .js .timeline::before,
+  .js .steps--tracked::after {
+    transform: scaleY(1) !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .js .hero-piece .hp-rule,
+  .js .hero-piece .hp-connector,
+  .js .hero-piece .hp-sign-rule {
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+
+  .js .hero-piece .hp-finding,
+  .js .hero-piece .hp-punch,
+  .js .hero-piece .hp-name--ghost {
+    opacity: 1 !important;
+  }
+
+  .lead-modal {
+    display: none !important;
+  }
 }

@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Previo — Person screening</title>
-    <meta name="description" content="Sanctions, adverse media, directorships, disqualifications and statutory registers — scored, itemised and signed. For appointments where a bad hire is a regulatory event.">
+    <title>Previo · Person screening</title>
+    <meta name="description" content="Sanctions, adverse media, directorships, disqualifications and statutory registers, searched in English and Danish and signed before release. For appointments where a bad hire is a regulatory event.">
     <link rel="canonical" href="https://previo-group.com/people/">
     <link rel="alternate" hreflang="en" href="https://previo-group.com/people/">
     <link rel="alternate" hreflang="da" href="https://previo-group.com/da/personer/">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://previo-group.com/people/">
-    <meta property="og:title" content="Previo — Person screening">
+    <meta property="og:title" content="Previo · Person screening">
     <meta property="og:description" content="Everything the public record holds on a candidate, in one signed assessment.">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="https://previo-group.com/assets/og-en.png">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/assets/tokens.css">
     <link rel="stylesheet" href="/assets/base.css">
@@ -23,48 +24,52 @@
 <nav class="top-nav">
     <div class="contain top-nav-inner">
         <a href="/" class="logo">Previo<span class="logo-dot">.</span></a>
-        <div class="nav-links">
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu">
+            <span class="nav-toggle-label">Menu</span>
+            <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span></span>
+        </button>
+        <div class="nav-links" id="site-menu">
             <a href="/method/">Method</a>
             <a href="/people/" aria-current="page">People</a>
             <a href="/companies/">Companies</a>
             <a href="/evidence/">Evidence</a>
-            <a href="#" data-lead="contact">Contact</a>
+            <button type="button" class="btn btn-primary" data-lead="contact">Request access</button>
             <a href="/da/personer/" class="nav-lang" hreflang="da">DA</a>
         </div>
     </div>
 </nav>
 
-<header class="hero">
+<header class="hero" data-theme="dark">
     <div class="contain">
         <p class="label">People</p>
         <h1>Everything the record holds<br>on your candidate.</h1>
-        <p class="lede">Sanctions, adverse media, directorships, disqualifications, insolvencies and statutory registers — searched in English and Danish, scored, itemised, and signed before it reaches you.</p>
+        <p class="lede">Sanctions, adverse media, directorships, disqualifications, insolvencies and statutory registers, searched in English and Danish. Every deduction is itemised against the finding that caused it, and a person signs the report before it reaches you.</p>
         <div class="hero-actions">
-            <a href="#" data-lead="contact" class="btn btn-primary">Request access</a>
+            <button type="button" class="btn btn-primary" data-lead="contact">Request access</button>
             <a href="/people/pricing/" class="btn btn-quiet">What an engagement costs</a>
         </div>
     </div>
 </header>
 
-<section class="section">
+<section class="section" data-theme="light">
     <div class="contain">
         <p class="label">The decision this serves</p>
         <div class="split">
             <div>
-                <h2>Fit and proper is a judgement.<br>Give it evidence.</h2>
+                <h2>Fit and proper,<br>with evidence.</h2>
             </div>
             <div class="prose reveal">
-                <p>The question is rarely whether a candidate looks right in an interview. It is whether there is anything in the public record that a regulator, a journalist or a board will find later — and whether you can show you went and looked before you appointed.</p>
+                <p>The question is rarely whether a candidate looks right in an interview. It is whether there is anything in the public record that a regulator, a journalist or a board will find later, and whether you can show you went and looked before you appointed.</p>
                 <p>Previo answers both. Every finding dated and linked to the record it came from, and an audit trail that shows the check was run, when, and against what.</p>
             </div>
         </div>
     </div>
 </section>
 
-<section class="section">
+<section class="section" data-theme="dark">
     <div class="contain">
         <p class="label">What we search</p>
-        <h2>Ten sources. One assessment.</h2>
+        <h2>Ten sources, one assessment.</h2>
         <p class="prose">Each source establishes something specific. Here is the whole set, and what each one can tell you.</p>
         <div class="register-scroll reveal">
             <table class="register">
@@ -143,7 +148,7 @@
     </div>
 </section>
 
-<section class="section">
+<section class="section" data-theme="light">
     <div class="contain">
         <p class="label">The second pass</p>
         <div class="split">
@@ -152,13 +157,13 @@
             </div>
             <div class="prose reveal">
                 <p>A first pass finds what is filed against a name. The interesting structures are rarely filed against the name you were given.</p>
-                <p>Where the first pass surfaces a spouse, a business partner or a family member with a material connection, Previo runs a second, cross-referenced pass over them — the standard vector for nominee arrangements and for value parked one step away from the subject. It is the part manual vetting almost never reaches.</p>
+                <p>Where the first pass surfaces a spouse, a business partner or a family member with a material connection, Previo runs a second, cross-referenced pass over them. That is the standard vector for nominee arrangements and for value parked one step away from the subject. It is the part manual vetting almost never reaches.</p>
             </div>
         </div>
     </div>
 </section>
 
-<section class="section">
+<section class="section" data-theme="dark">
     <div class="contain">
         <p class="label">How the output reads</p>
         <div class="split">
@@ -167,7 +172,7 @@
                 <p class="prose">The report is the product. The number is the shorthand.</p>
             </div>
             <div class="reveal">
-                <p class="prose">A subject begins at 100 and every deduction is itemised, so you can trace the number to the finding and the finding to the source. Thresholds move with the seniority of the role — a public-office appointment clears at a higher score than an individual contributor — so the bands below are the default rather than the scale.</p>
+                <p class="prose">A subject begins at 100 and every deduction is itemised, so you can trace the number to the finding and the finding to the source. Thresholds move with the seniority of the role: a public-office appointment clears at a higher score than an individual contributor. The bands below are the default rather than the scale.</p>
                 <div class="band">
                     <div class="band-range">80&ndash;100</div>
                     <div>
@@ -195,12 +200,12 @@
     </div>
 </section>
 
-<section class="section">
+<section class="section" data-theme="light">
     <div class="contain">
         <p class="label">Consent and lawful basis</p>
         <div class="split">
             <div>
-                <h2>Clean to run,<br>clean to defend.</h2>
+                <h2>Clean to run,<br>and to defend.</h2>
             </div>
             <div class="prose reveal">
                 <p>The candidate receives a secure invitation and gives consent before anything runs, and consent is revocable at any point before release. Processing is conducted under GDPR Article 6(1)(f), legitimate interest, with a Legitimate Interests Assessment available on request and subject access requests handled as a matter of course.</p>
@@ -211,10 +216,10 @@
     </div>
 </section>
 
-<section class="cta">
+<section class="cta" data-theme="dark">
     <div class="contain">
         <h2>Screen the appointment<br>you cannot get wrong.</h2>
-        <a href="#" data-lead="contact" class="btn btn-primary">Request access</a>
+        <button type="button" class="btn btn-primary" data-lead="contact">Request access</button>
     </div>
 </section>
 

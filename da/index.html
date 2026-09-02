@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Previo — Efterretning fra det offentlige register</title>
+    <title>Previo · Efterretning fra offentlige kilder</title>
     <meta name="description" content="Efterretning om de personer, virksomheder og forsyningskæder, dine største beslutninger hviler på. Hvert fund kan åbnes ved kilden.">
     <link rel="canonical" href="https://previo-group.com/da/">
     <link rel="alternate" hreflang="da" href="https://previo-group.com/da/">
@@ -11,9 +11,10 @@
     <link rel="alternate" hreflang="x-default" href="https://previo-group.com/">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://previo-group.com/da/">
-    <meta property="og:title" content="Previo — Efterretning fra det offentlige register">
+    <meta property="og:title" content="Previo · Efterretning fra offentlige kilder">
     <meta property="og:description" content="Hvert fund kan åbnes ved kilden.">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="https://previo-group.com/assets/og-da.png">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/assets/tokens.css">
     <link rel="stylesheet" href="/assets/base.css">
@@ -24,109 +25,201 @@
 <nav class="top-nav">
     <div class="contain top-nav-inner">
         <a href="/da/" class="logo">Previo<span class="logo-dot">.</span></a>
-        <div class="nav-links">
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu">
+            <span class="nav-toggle-label">Menu</span>
+            <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span></span>
+        </button>
+        <div class="nav-links" id="site-menu">
             <a href="/da/metode/">Metode</a>
             <a href="/da/personer/">Personer</a>
             <a href="/da/virksomheder/">Virksomheder</a>
             <a href="/da/dokumentation/">Dokumentation</a>
-            <a href="#" data-lead="contact">Kontakt</a>
+            <button type="button" class="btn btn-primary" data-lead="contact">Anmod om adgang</button>
             <a href="/" class="nav-lang" hreflang="en">EN</a>
         </div>
     </div>
 </nav>
 
-<header class="hero">
-    <div class="contain">
-        <h1>Hvert fund kan åbnes<br>ved kilden.</h1>
-        <p class="lede">Efterretning om de personer, virksomheder og forsyningskæder, dine største beslutninger hviler på — sporet til registret, dokumenteret linje for linje og underskrevet, før den når dig.</p>
-        <div class="hero-actions">
-            <a href="#" data-lead="contact" class="btn btn-primary">Anmod om adgang</a>
-            <a href="/da/metode/" class="btn btn-quiet">Sådan virker det</a>
+<header class="hero" data-theme="dark">
+    <div class="contain hero-grid">
+        <div class="hero-copy">
+            <h1>Hvert fund kan<br>åbnes ved kilden.</h1>
+            <p class="lede">Efterretning om de personer, virksomheder og forsyningskæder, dine største beslutninger hviler på. Hver linje er sporet til den optegnelse, den stammer fra, og et menneske læser rapporten, før den når dig.</p>
+            <div class="hero-actions">
+                <button type="button" class="btn btn-primary" data-lead="contact">Anmod om adgang</button>
+                <a href="/da/metode/" class="btn btn-quiet">Sådan virker det</a>
+            </div>
+            <div class="hero-trust">
+                <span>UK &amp; EU</span>
+                <span>Regulerede beslutninger</span>
+                <span>GDPR artikel 6, stk. 1, litra f</span>
+            </div>
         </div>
-        <div class="hero-trust">
-            <span>UK &amp; EU</span>
-            <span>Regulerede og omdømmefølsomme beslutninger</span>
-            <span>GDPR artikel 6, stk. 1, litra f</span>
-        </div>
+        <svg class="hero-piece" viewBox="0 0 640 400" role="img" aria-labelledby="hp-title">
+            <title id="hp-title">Fire navnebrødre indsnævres til ét emne, seks offentlige kilder læses, tre daterede fund slås fast, og et menneske skriver under.</title>
+            <g class="hp-namesakes" aria-hidden="true">
+                <text class="hp-name hp-name--ghost" x="24" y="34">M. Nielsen</text>
+                <text class="hp-name hp-name--ghost" x="24" y="58">M. Nielsen</text>
+                <text class="hp-name hp-name--ghost" x="24" y="82">M. Nielsen</text>
+                <text class="hp-name hp-name--ghost" x="24" y="106">M. Nielsen</text>
+            </g>
+            <g class="hp-subject">
+                <text class="hp-name" x="24" y="150">M. Nielsen</text>
+                <line class="hp-rule" pathLength="1" x1="24" y1="162" x2="190" y2="162"></line>
+                <text class="hp-id" x="24" y="182">EMNE REF 04-1179</text>
+            </g>
+            <g class="hp-sources">
+                <g class="hp-source">
+                    <path class="hp-connector" pathLength="1" d="M 192 162 H 250 V 34 H 392"></path>
+                    <text x="400" y="38">Selskabsregister</text>
+                </g>
+                <g class="hp-source">
+                    <path class="hp-connector" pathLength="1" d="M 192 162 H 268 V 62 H 392"></path>
+                    <text x="400" y="66">Offentlige registre</text>
+                </g>
+                <g class="hp-source">
+                    <path class="hp-connector" pathLength="1" d="M 192 162 H 286 V 90 H 392"></path>
+                    <text x="400" y="94">Sanktionslister</text>
+                </g>
+                <g class="hp-source">
+                    <path class="hp-connector" pathLength="1" d="M 192 162 H 304 V 118 H 392"></path>
+                    <text x="400" y="122">Publiceret journalistik</text>
+                </g>
+                <g class="hp-source">
+                    <path class="hp-connector" pathLength="1" d="M 192 162 H 322 V 146 H 392"></path>
+                    <text x="400" y="150">Ejendomsregister</text>
+                </g>
+                <g class="hp-source">
+                    <path class="hp-connector" pathLength="1" d="M 192 162 H 340 V 174 H 392"></path>
+                    <text x="400" y="178">Officielle tidender</text>
+                </g>
+            </g>
+            <g class="hp-rules">
+                <line class="hp-rule" pathLength="1" x1="24" y1="216" x2="616" y2="216"></line>
+                <line class="hp-rule" pathLength="1" x1="24" y1="350" x2="616" y2="350"></line>
+            </g>
+            <g class="hp-findings">
+                <g class="hp-finding">
+                    <line class="hp-connector" pathLength="1" x1="24" y1="248" x2="52" y2="248"></line>
+                    <text class="hp-date" x="64" y="252">2019</text>
+                    <text x="116" y="252">Ledelseshverv, opløst selskab</text>
+                    <text class="hp-punch" x="616" y="252" text-anchor="end">REGISTRERET</text>
+                </g>
+                <g class="hp-finding">
+                    <line class="hp-connector" pathLength="1" x1="24" y1="286" x2="52" y2="286"></line>
+                    <text class="hp-date" x="64" y="290">2021</text>
+                    <text x="116" y="290">Konkursmeddelelse</text>
+                    <text class="hp-punch" x="616" y="290" text-anchor="end">OFFENTLIGGJORT</text>
+                </g>
+                <g class="hp-finding">
+                    <line class="hp-connector" pathLength="1" x1="24" y1="324" x2="52" y2="324"></line>
+                    <text class="hp-date" x="64" y="328">2024</text>
+                    <text x="116" y="328">Strakspåbud fra en myndighed</text>
+                    <text class="hp-punch hp-punch--severe" x="616" y="328" text-anchor="end">PÅBUDT</text>
+                </g>
+            </g>
+            <g class="hp-signature">
+                <text class="hp-sign" x="24" y="380">Læst og frigivet af et menneske</text>
+                <line class="hp-sign-rule" pathLength="1" x1="24" y1="390" x2="256" y2="390"></line>
+            </g>
+        </svg>
     </div>
 </header>
 
-<section class="section">
+<section class="section" data-theme="light">
     <div class="contain">
         <p class="label">Problemet</p>
         <div class="split">
             <div>
-                <h2>Registret lå der hele tiden.<br>Ingen læste det.</h2>
+                <h2>Ingen læste registret, der lå der hele tiden.</h2>
             </div>
             <div class="reveal">
-                <p class="prose">Næsten enhver udnævnelse, der ender i en overskrift, kunne have været undgået. Konkursen, karantænen, mønstret af afskedigelser, ejeren ingen kunne navngive — det lå i et offentligt register eller en offentliggjort artikel, måneder eller år før beslutningen blev truffet, og ingen gik ind og så efter.</p>
-                <p class="prose">Previo går ind og ser efter. Systematisk, på dansk og engelsk, på tværs af sanktionslister, selskabsregistre, officielle tidender og publiceret journalistik — og leverer en vurdering, hvor hver linje kan åbnes ved den optegnelse, den stammer fra.</p>
+                <p class="prose">Næsten enhver udnævnelse, der ender i en overskrift, kunne have været undgået. Konkursen, karantænen, mønstret af afskedigelser, ejeren ingen kunne navngive: det lå i et offentligt register eller en offentliggjort artikel, måneder eller år før beslutningen blev truffet. Ingen gik ind og så efter.</p>
+                <p class="prose">Previo går ind og ser efter. Systematisk, på dansk og engelsk, på tværs af sanktionslister, selskabsregistre, officielle tidender og publiceret journalistik. Resultatet er en vurdering, hvor hver linje kan åbnes ved den optegnelse, den stammer fra.</p>
                 <p class="prose"><a href="/da/dokumentation/">To sager, hvor det hele var offentligt &rarr;</a></p>
             </div>
         </div>
     </div>
 </section>
 
-<section class="section">
+<section class="section" data-theme="dark">
     <div class="contain">
         <p class="label">Én motor, tre emner</p>
         <h2>Uanset hvad beslutningen<br>afhænger af, kan vi fastslå det.</h2>
         <p class="prose">Fastlæg enheden. Følg ejerskabet. Bekræft registret. Den samme motor, rettet mod det emne, du er ved at stå inde for.</p>
-        <div class="lines reveal">
-            <div class="line-tile">
+        <div class="lines">
+            <div class="line-tile reveal">
                 <h3>Personer</h3>
-                <p>Sanktioner og overvågningslister, negativ medieomtale på dansk og engelsk, ledelseshverv og konkurskarantæne, offentlige registre — scoret, specificeret og underskrevet.</p>
+                <p>Sanktioner og overvågningslister, negativ medieomtale på dansk og engelsk, ledelseshverv og konkurskarantæne, offentlige registre. Hvert fund bærer sin dato, sin kilde og sit fradrag i scoren.</p>
                 <a href="/da/personer/">Personscreening &rarr;</a>
             </div>
-            <div class="line-tile">
+            <div class="line-tile reveal">
                 <h3>Virksomheder</h3>
-                <p>Ejerskab og kontrol, sporet opad gennem holdingstrukturer til de mennesker, der reelt ejer selskabet — og de mennesker screenet, med deres øvrige selskaber undersøgt.</p>
+                <p>Ejerskab og kontrol, sporet opad gennem holdingstrukturer til de mennesker, der reelt ejer selskabet. Disse mennesker bliver derefter screenet, og deres øvrige selskaber undersøgt.</p>
                 <a href="/da/virksomheder/">Virksomheds-due-diligence &rarr;</a>
             </div>
-            <div class="line-tile">
+            <div class="line-tile reveal">
                 <h3>Forsyningskæder</h3>
                 <p>Hvor noget kommer fra, og hvor langt tilbage det kan dokumenteres, led for led. Bygget til forsvarssektoren.</p>
                 <a href="/da/forsyningskaeder/">Forsvarslinjen &rarr;</a>
             </div>
         </div>
+        <div class="stat-band" data-stagger>
+            <div class="reveal">
+                <div class="stat-figure" data-count>3</div>
+                <p class="stat-note">Emner: personer, virksomheder og forsyningskæder.</p>
+            </div>
+            <div class="reveal">
+                <div class="stat-figure" data-count>10</div>
+                <p class="stat-note">Navngivne kilder i personregistret.</p>
+            </div>
+            <div class="reveal">
+                <div class="stat-figure" data-count>2</div>
+                <p class="stat-note">Sprog læst fuldt ud: dansk og engelsk.</p>
+            </div>
+            <div class="reveal">
+                <div class="stat-figure" data-count>1</div>
+                <p class="stat-note">Et menneske læser og frigiver hver rapport.</p>
+            </div>
+        </div>
     </div>
 </section>
 
-<section class="section">
+<section class="section" data-theme="light">
     <div class="contain">
         <p class="label">Hvorfor den holder</p>
         <div class="split">
             <div>
-                <h2>Bygget til at holde,<br>når den bliver efterprøvet.</h2>
+                <h2>Bygget til at holde, når den bliver efterprøvet.</h2>
                 <p class="prose"><a href="/da/metode/">Hele metoden &rarr;</a></p>
             </div>
-            <div class="steps reveal">
-                <div class="step">
+            <div class="steps steps--tracked" data-stagger>
+                <div class="step reveal">
                     <span class="step-num">01</span>
                     <div>
                         <div class="step-title">Det rigtige emne, først</div>
                         <p class="step-desc">Identiteten fastlægges, før en eneste søgning kører, så fundene lander på dit emne og ikke på en navnebror. Det er forskellen på efterretning og støj.</p>
                     </div>
                 </div>
-                <div class="step">
+                <div class="step reveal">
                     <span class="step-num">02</span>
                     <div>
                         <div class="step-title">Hvert fund kildeangivet og dateret</div>
                         <p class="step-desc">Hvert punkt henviser til optegnelsen og dateres efter begivenheden, ikke efter artiklen. Åbn den selv. Tag den med til en tilsynsmyndighed, en bestyrelse eller en retssag.</p>
                     </div>
                 </div>
-                <div class="step">
+                <div class="step reveal">
                     <span class="step-num">03</span>
                     <div>
                         <div class="step-title">Scoret og til at skille ad</div>
                         <p class="step-desc">En score fra 0 til 100, hvor hvert fradrag er specificeret, så du kan spore tallet til fundet og fundet til kilden. Ingen sort boks.</p>
                     </div>
                 </div>
-                <div class="step">
+                <div class="step reveal">
                     <span class="step-num">04</span>
                     <div>
                         <div class="step-title">Underskrevet af et menneske</div>
-                        <p class="step-desc">En kontrolinstans fjerner det, der ikke kan holde, og derefter læser et menneske rapporten og skriver under. Et menneske frigiver hver rapport.</p>
+                        <p class="step-desc">En kontrolinstans fjerner det, der ikke kan holde. Derefter læser et menneske rapporten og skriver under. Et menneske frigiver hver rapport.</p>
                     </div>
                 </div>
             </div>
@@ -134,11 +227,12 @@
     </div>
 </section>
 
-<section class="section">
+<section class="section" data-theme="light">
     <div class="contain">
         <p class="label">Hvad det koster at lade være</p>
         <h2>To danske sager, hvor beviserne<br>lå frit fremme.</h2>
         <p class="prose">Ingen af emnerne blev screenet. I begge tilfælde lå det materiale, der afsluttede en politisk karriere, i registre og national journalistik længe før beslutningen blev truffet.</p>
+        <p class="callout">Sagsgennemgangene findes på engelsk.</p>
         <div class="studies reveal">
             <a href="/case-study.html" class="study-card">
                 <div class="study-kicker">Sag 01 · 2026</div>
@@ -155,15 +249,16 @@
                 <p class="study-lede">Tre afskedigelser på ledelsesniveau i tre institutioner, en påstået forfalskning, et uangivet personalegode og klager fra over tredive tidligere kolleger.</p>
             </a>
         </div>
-        <p class="callout">Sagsgennemgangene findes på engelsk.</p>
     </div>
 </section>
 
-<section class="cta">
+<section class="cta" data-theme="dark">
     <div class="contain">
         <h2>Stil et bedre spørgsmål.</h2>
         <p class="prose">Fortæl os, hvilken beslutning du står over for. Så fortæller vi dig, hvad registret kan fastslå om den.</p>
-        <a href="#" data-lead="contact" class="btn btn-primary">Anmod om adgang</a>
+        <div class="cta-actions hero-actions">
+            <button type="button" class="btn btn-primary" data-lead="contact">Anmod om adgang</button>
+        </div>
     </div>
 </section>
 
@@ -184,6 +279,7 @@
 </footer>
 
 <script src="/assets/chrome.js" defer></script>
+<script src="/assets/hero.js" defer></script>
 <script src="/assets/lead-form.js" defer></script>
 </body>
 </html>

@@ -196,3 +196,15 @@ INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
 DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 OTHER DEALINGS IN THE FONT SOFTWARE.
+
+
+================================================================================
+DM Mono
+================================================================================
+
+Copyright 2020 The DM Mono Project Authors (https://github.com/googlefonts/dm-mono),
+with Reserved Font Name "DM Mono". Designed by Colophon Foundry.
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1,
+the full text of which is reproduced above under "DM Sans". It is also
+available with a FAQ at: https://scripts.sil.org/OFL

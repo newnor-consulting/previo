@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Previo — Virksomheds-due-diligence</title>
-    <meta name="description" content="Ejerskab sporet opad gennem holdingstrukturer til de mennesker, der reelt kontrollerer selskabet — og de mennesker screenet, med deres øvrige selskaber undersøgt.">
+    <title>Previo · Virksomheds-due-diligence</title>
+    <meta name="description" content="Ejerskab sporet opad gennem holdingstrukturer til de mennesker, der reelt kontrollerer selskabet. De mennesker bliver derefter screenet, og deres øvrige selskaber undersøgt.">
     <link rel="canonical" href="https://previo-group.com/da/virksomheder/">
     <link rel="alternate" hreflang="da" href="https://previo-group.com/da/virksomheder/">
     <link rel="alternate" hreflang="en" href="https://previo-group.com/companies/">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://previo-group.com/da/virksomheder/">
-    <meta property="og:title" content="Previo — Virksomheds-due-diligence">
+    <meta property="og:title" content="Previo · Virksomheds-due-diligence">
     <meta property="og:description" content="Hvem der reelt kontrollerer selskabet.">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="https://previo-group.com/assets/og-da.png">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/assets/tokens.css">
     <link rel="stylesheet" href="/assets/base.css">
@@ -23,30 +24,34 @@
 <nav class="top-nav">
     <div class="contain top-nav-inner">
         <a href="/da/" class="logo">Previo<span class="logo-dot">.</span></a>
-        <div class="nav-links">
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu">
+            <span class="nav-toggle-label">Menu</span>
+            <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span></span>
+        </button>
+        <div class="nav-links" id="site-menu">
             <a href="/da/metode/">Metode</a>
             <a href="/da/personer/">Personer</a>
             <a href="/da/virksomheder/" aria-current="page">Virksomheder</a>
             <a href="/da/dokumentation/">Dokumentation</a>
-            <a href="#" data-lead="contact">Kontakt</a>
+            <button type="button" class="btn btn-primary" data-lead="contact">Anmod om adgang</button>
             <a href="/companies/" class="nav-lang" hreflang="en">EN</a>
         </div>
     </div>
 </nav>
 
-<header class="hero">
+<header class="hero" data-theme="dark">
     <div class="contain">
         <p class="label">Virksomheder</p>
         <h1>Hvem der reelt<br>kontrollerer selskabet.</h1>
-        <p class="lede">Ejerskab sporet opad gennem holdingstrukturer til de mennesker, der reelt ejer det — og derefter de mennesker screenet, med deres øvrige selskaber undersøgt. Til opkøb, leverandøroptagelse, forhandleraftaler og investering.</p>
+        <p class="lede">Ejerskab sporet opad gennem holdingstrukturer til de mennesker, der reelt ejer det. Derefter bliver de mennesker screenet, og deres øvrige selskaber undersøgt. Til opkøb, leverandøroptagelse, forhandleraftaler og investering.</p>
         <div class="hero-actions">
-            <a href="#" data-lead="contact" class="btn btn-primary">Anmod om adgang</a>
+            <button type="button" class="btn btn-primary" data-lead="contact">Anmod om adgang</button>
             <a href="/da/metode/" class="btn btn-quiet">Metoden</a>
         </div>
     </div>
 </header>
 
-<section class="section">
+<section class="section" data-theme="light">
     <div class="contain">
         <p class="label">Beslutningen, dette tjener</p>
         <div class="split">
@@ -54,58 +59,58 @@
                 <h2>Navnet på kontrakten<br>er næsten aldrig svaret.</h2>
             </div>
             <div class="prose reveal">
-                <p>Et selskabsregister fortæller, hvem der er formelt registreret. Det fortæller ikke, hvem der ender med den økonomiske interesse, når et holdingselskab ejer et holdingselskab — og det er præcis det spørgsmål, enhver sanktions-, udbuds- og hvidvaskforpligtelse i virkeligheden hviler på.</p>
+                <p>Et selskabsregister fortæller, hvem der er formelt registreret. Det fortæller ikke, hvem der ender med den økonomiske interesse, når et holdingselskab ejer et holdingselskab. Det er præcis det spørgsmål, enhver sanktions-, udbuds- og hvidvaskforpligtelse i virkeligheden hviler på.</p>
                 <p>Et tjek i ét lag læser et holdingselskab som ejeren og stopper der. Previo stopper ikke der.</p>
             </div>
         </div>
     </div>
 </section>
 
-<section class="section">
+<section class="section" data-theme="dark">
     <div class="contain">
         <p class="label">Hvad der kører</p>
         <h2>Fem trin, i rækkefølge.</h2>
-        <div class="steps reveal">
-            <div class="step">
+        <div class="steps" data-stagger>
+            <div class="step reveal">
                 <span class="step-num">01</span>
                 <div>
                     <div class="step-title">Selskabets status</div>
-                    <p class="step-desc">Registreringsstatus og indberetningshistorik, og de strukturelle signaler, der betyder noget i sig selv: konkurs, tvangsopløsning, sletning — og fraværet af en aktuelt registreret ejer, hvilket er et fund i sig selv frem for et tomrum.</p>
+                    <p class="step-desc">Registreringsstatus og indberetningshistorik, og de strukturelle signaler, der betyder noget i sig selv: konkurs, tvangsopløsning og sletning. Hertil kommer fraværet af en aktuelt registreret ejer, som er et fund i sig selv frem for et tomrum.</p>
                 </div>
             </div>
-            <div class="step">
+            <div class="step reveal">
                 <span class="step-num">02</span>
                 <div>
                     <div class="step-title">Sanktioner på enheden</div>
                     <p class="step-desc">Selskabet screenet mod de konsoliderede OFAC-, FN-, UK OFSI- og EU-lister, hvor svage match fremlægges til gennemgang frem for at blive afgjort i stilhed.</p>
                 </div>
             </div>
-            <div class="step">
+            <div class="step reveal">
                 <span class="step-num">03</span>
                 <div>
                     <div class="step-title">Negativ medieomtale på enheden</div>
                     <p class="step-desc">Publiceret omtale af selskabet på dansk og engelsk, dateret efter selve begivenheden og nedvægtet hvor koblingen til enheden er svag.</p>
                 </div>
             </div>
-            <div class="step">
+            <div class="step reveal">
                 <span class="step-num">04</span>
                 <div>
                     <div class="step-title">Ejerskabet sporet til rigtige mennesker</div>
-                    <p class="step-desc">Kæden følges opad gennem holdingselskaber, indtil den når fysiske personer, med andele ganget sammen undervejs — så en tredjedel af et holdingselskab, der ejer emnet fuldt ud, står som en tredjedel af emnet, hvilket er det tal, dine forpligtelser rent faktisk knytter sig til.</p>
+                    <p class="step-desc">Kæden følges opad gennem holdingselskaber, indtil den når fysiske personer, med andele ganget sammen undervejs. En tredjedel af et holdingselskab, der ejer emnet fuldt ud, står derfor som en tredjedel af emnet, og det er det tal, dine forpligtelser rent faktisk knytter sig til.</p>
                 </div>
             </div>
-            <div class="step">
+            <div class="step reveal">
                 <span class="step-num">05</span>
                 <div>
                     <div class="step-title">Personerne bag, screenet</div>
-                    <p class="step-desc">Ejere, reelle ejere og ledelse screenes derefter — op til ti af dem, prioriteret efter kontrol frem for titel — og ét afgrænset skridt ud i de øvrige selskaber, de driver.</p>
+                    <p class="step-desc">Ejere, reelle ejere og ledelse screenes derefter, op til ti af dem, prioriteret efter kontrol frem for titel. Screeningen går ét afgrænset skridt ud i de øvrige selskaber, de driver.</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="section">
+<section class="section" data-theme="light">
     <div class="contain">
         <p class="label">Hvad vi søger i</p>
         <h2>Seks kilder, på enheden<br>og på alle bag den.</h2>
@@ -155,7 +160,7 @@
     </div>
 </section>
 
-<section class="section">
+<section class="section" data-theme="dark">
     <div class="contain">
         <p class="label">Sådan læses resultatet</p>
         <div class="split">
@@ -163,7 +168,7 @@
                 <h2>Ét bånd,<br>for enhver virksomhed.</h2>
             </div>
             <div class="reveal">
-                <p class="prose">En virksomhed scores på en flad skala — den har ingen anciennitet at justere for. Dens egen registreringsstatus er det dominerende signal; fund mod personerne bag vægtes efter, hvor tæt de sidder på kontrollen.</p>
+                <p class="prose">En virksomhed scores på en flad skala: den har ingen anciennitet at justere for. Dens egen registreringsstatus er det dominerende signal; fund mod personerne bag vægtes efter, hvor tæt de sidder på kontrollen.</p>
                 <div class="band">
                     <div class="band-range">80&ndash;100</div>
                     <div>
@@ -190,10 +195,12 @@
     </div>
 </section>
 
-<section class="cta">
+<section class="cta" data-theme="dark">
     <div class="contain">
         <h2>Kend modparten<br>før underskriften.</h2>
-        <a href="#" data-lead="contact" class="btn btn-primary">Anmod om adgang</a>
+        <div class="cta-actions hero-actions">
+            <button type="button" class="btn btn-primary" data-lead="contact">Anmod om adgang</button>
+        </div>
     </div>
 </section>
 

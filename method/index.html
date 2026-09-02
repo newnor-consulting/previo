@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Previo — Method</title>
+    <title>Previo · Method</title>
     <meta name="description" content="How Previo produces an assessment that survives being checked: the right subject first, every finding sourced and dated, scored transparently, and signed by a person.">
     <link rel="canonical" href="https://previo-group.com/method/">
     <link rel="alternate" hreflang="en" href="https://previo-group.com/method/">
     <link rel="alternate" hreflang="da" href="https://previo-group.com/da/metode/">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://previo-group.com/method/">
-    <meta property="og:title" content="Previo — Method">
+    <meta property="og:title" content="Previo · Method">
     <meta property="og:description" content="Built to survive being checked.">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="https://previo-group.com/assets/og-en.png">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/assets/tokens.css">
     <link rel="stylesheet" href="/assets/base.css">
@@ -23,33 +24,37 @@
 <nav class="top-nav">
     <div class="contain top-nav-inner">
         <a href="/" class="logo">Previo<span class="logo-dot">.</span></a>
-        <div class="nav-links">
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu">
+            <span class="nav-toggle-label">Menu</span>
+            <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span></span>
+        </button>
+        <div class="nav-links" id="site-menu">
             <a href="/method/" aria-current="page">Method</a>
             <a href="/people/">People</a>
             <a href="/companies/">Companies</a>
             <a href="/evidence/">Evidence</a>
-            <a href="#" data-lead="contact">Contact</a>
+            <button type="button" class="btn btn-primary" data-lead="contact">Request access</button>
             <a href="/da/metode/" class="nav-lang" hreflang="da">DA</a>
         </div>
     </div>
 </nav>
 
-<header class="hero">
+<header class="hero" data-theme="dark">
     <div class="contain">
         <p class="label">Method</p>
         <h1>Built to survive<br>being checked.</h1>
-        <p class="lede">An assessment is only worth what it is worth under scrutiny — from a regulator, a board, an acquirer, or the subject's lawyer. Here is how Previo builds one that holds.</p>
+        <p class="lede">An assessment is only worth what it is worth under scrutiny: from a regulator, a board, an acquirer, or the subject's lawyer. Here is how Previo builds one that holds.</p>
     </div>
 </header>
 
-<section class="section">
+<section class="section" data-theme="light">
     <div class="contain">
-        <div class="steps">
+        <div class="steps steps--tracked" data-stagger>
             <div class="step reveal">
                 <span class="step-num">01</span>
                 <div>
                     <div class="step-title">The right subject, before anything else</div>
-                    <p class="step-desc">The expensive failure in this work is not a missed finding. It is a real finding attached to the wrong person or the wrong company — which looks exactly like diligence until someone checks it. Previo resolves the subject first, from a verified legal name where one is available, and anchors every subsequent search to it. Common names are where cheap screening quietly falls apart.</p>
+                    <p class="step-desc">The expensive failure in this work is not a missed finding. It is a real finding attached to the wrong person or the wrong company. That looks exactly like diligence until someone checks it. Previo resolves the subject first, from a verified legal name where one is available, and anchors every subsequent search to it. Common names are where cheap screening quietly falls apart.</p>
                 </div>
             </div>
             <div class="step reveal">
@@ -77,14 +82,14 @@
                 <span class="step-num">05</span>
                 <div>
                     <div class="step-title">Adjudicated, then signed</div>
-                    <p class="step-desc">Before release, an adjudication pass reviews the findings with power in one direction only: it can remove or downgrade, never add, raise, or release. Then a person reads the report and signs it. A person releases every report — a control on the automation, and a named accountability that gets weaker with scale rather than stronger, which is why we can offer it now.</p>
+                    <p class="step-desc">Before release, an adjudication pass reviews the findings with power in one direction only: it can remove or downgrade, never add, raise, or release. Then a person reads the report and signs it. A person releases every report. It is a control on the automation, and a named accountability that gets weaker with scale rather than stronger, which is why we can offer it now.</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="section">
+<section class="section" data-theme="light">
     <div class="contain">
         <p class="label">Applied to three subjects</p>
         <h2>One engine.</h2>
@@ -109,10 +114,10 @@
     </div>
 </section>
 
-<section class="cta">
+<section class="cta" data-theme="dark">
     <div class="contain">
         <h2>See it against<br>a real decision.</h2>
-        <a href="#" data-lead="contact" class="btn btn-primary">Request access</a>
+        <button type="button" class="btn btn-primary" data-lead="contact">Request access</button>
     </div>
 </section>
 

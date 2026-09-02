@@ -70,6 +70,32 @@
     U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
+/* The third voice. DM Mono (SIL OFL, Colophon Foundry) carries the record:
+   identifiers, dates, register reach cells, source labels, hallmark punches.
+   Static weight 400 only — the mono is never used for emphasis. */
+
+@font-face {
+  font-family: "DM Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/dm-mono-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "DM Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/dm-mono-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
 /* --- The palette, light ---------------------------------------------------- */
 
 :root {
@@ -86,6 +112,15 @@
 
   --font-sans: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-mono: "DM Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Motion. One curve and three durations, so every animation on the site is
+     recognisably the same hand. --d-fast is a hover, --d-base a state change,
+     --d-slow an entrance. Nothing bounces and nothing overshoots. */
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+  --d-fast: 180ms;
+  --d-base: 320ms;
+  --d-slow: 600ms;
 
   /* Type. The report and the Provenance app run a dense 12.67px body derived
      from the PDF's point scale; a marketing page is read at arm's length and on
@@ -117,21 +152,58 @@
    A token swap, nothing else. --rule is deliberately NOT the naive inversion of
    #e4e2dd: a hairline at the inverted value is invisible on a dark ground on
    many displays, which silently destroys the whole rule hierarchy — and the
-   rules are the grammar here, so losing them loses the design. */
+   rules are the grammar here, so losing them loses the design.
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --ink: #f0eee9;
-    --black: #ffffff;
-    --paper: #0c0d0f;
-    --ivory: #141518;
-    --rule: #2a2c30;
-    --rule-strong: #383a3e;
-    --mid: #6e6e6b;
-    --dim: #9a9a96;
-    --teal: #14b8a6;
-    --severe: #c4564f;
-  }
+   WHY THIS IS SCOPED AND NOT `prefers-color-scheme`
+   -------------------------------------------------
+   Until 2026-09-02 this block sat behind `@media (prefers-color-scheme: dark)`
+   and flipped the WHOLE document from the operating system. The rebrand
+   authors the rhythm per section instead: each page opens on a dark hero and
+   alternates dark and paper down the page, so a section decides its own ground
+   with `data-theme`. Those two mechanisms cannot coexist. An OS-dark visitor
+   with the old block would land on a page whose paper sections had silently
+   become dark, while the sections deliberately marked dark stayed dark — dark
+   on dark, the rhythm gone and, worse, ink-on-ink in the places where a
+   component sets `--ink` against an assumed paper ground. The authored rhythm
+   wins; the OS no longer votes on a marketing page. (Provenance and the app
+   keep their own OS-driven schemes; this rule is the public site only.)
+
+   `.top-nav` is in the dark selector by default because every page opens on a
+   dark hero, so the nav's no-JavaScript resting state is the correct one.
+   chrome.js (WP3) observes the section under the nav's bottom edge and sets
+   `data-theme="light"` on the nav while a paper section is beneath it, which
+   the block below then answers. */
+
+[data-theme="dark"],
+.top-nav {
+  --ink: #f0eee9;
+  --black: #ffffff;
+  --paper: #0c0d0f;
+  --ivory: #141518;
+  --rule: #2a2c30;
+  --rule-strong: #383a3e;
+  --mid: #6e6e6b;
+  --dim: #9a9a96;
+  --teal: #14b8a6;
+  --severe: #c4564f;
+  color-scheme: dark;
+}
+
+/* The way back to paper: a light island inside a dark section, and the nav
+   while it sits over a paper section. Same ten tokens, light values. */
+
+[data-theme="light"] {
+  --ink: #1a1b1e;
+  --black: #0c0d0f;
+  --paper: #fafaf8;
+  --ivory: #f5f3ef;
+  --rule: #e4e2dd;
+  --rule-strong: #c9c6be;
+  --mid: #8a8a86;
+  --dim: #5a5a57;
+  --teal: #0d9488;
+  --severe: #8b2e2a;
+  color-scheme: light;
 }
 
 /* --- Print -----------------------------------------------------------------
@@ -140,7 +212,10 @@
    override in scripts/check_design_tokens.py, not silenced. */
 
 @media print {
-  :root {
+  :root,
+  [data-theme="dark"],
+  [data-theme="light"],
+  .top-nav {
     --ink: #1a1b1e;
     --black: #0c0d0f;
     --paper: #ffffff;
@@ -151,5 +226,22 @@
     --dim: #5a5a57;
     --teal: #0d9488;
     --severe: #8b2e2a;
+    color-scheme: light;
+  }
+}
+
+/* --- Page transitions ------------------------------------------------------
+   Cross-document view transitions: a short crossfade between pages where the
+   browser supports it, and nothing at all where it does not. One rule, no
+   JavaScript, and it is the only place the site asks the browser to animate
+   navigation. */
+
+@view-transition {
+  navigation: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
   }
 }

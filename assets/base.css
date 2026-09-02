@@ -59,6 +59,15 @@ h4 {
   color: var(--ink);
 }
 
+/* The headline and the section titles are the page's statement, so they take
+   the true near-black (pure white on a dark ground) rather than the body ink.
+   Premium monochrome is high contrast with few hues; the old flat --ink for
+   everything was the low-contrast reading the brand was pulled up on. */
+h1,
+h2 {
+  color: var(--black);
+}
+
 h1 {
   font-size: var(--t-display);
 }
@@ -87,7 +96,7 @@ p {
 
 strong {
   font-weight: 500;
-  color: var(--ink);
+  color: var(--black);
 }
 
 a {
@@ -149,8 +158,17 @@ hr {
 
 .prose h2,
 .prose h3 {
-  color: var(--ink);
+  color: var(--black);
   margin-top: var(--s-5);
+}
+
+/* The third voice, as a utility. Anything that is a record rather than prose —
+   an identifier, a date, a reach cell, a source label — is set in the mono. */
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.02em;
+  font-variant-ligatures: none;
 }
 
 /* The eyebrow. Uppercase, tracked, tiny — the one place small caps appear. */
@@ -187,12 +205,32 @@ hr {
   border-top: 1px solid var(--rule);
 }
 
+/* --- Authored section rhythm ------------------------------------------------
+   A section declares its own ground with data-theme; tokens.css re-declares the
+   ten tokens under that selector, so every component inverts for free. The
+   element paints the ground itself because <body> only knows about paper. */
+
+[data-theme] {
+  background-color: var(--paper);
+  color: var(--ink);
+}
+
+/* Where two sections share a ground, the rule between them is noise: the
+   grammar marks a CHANGE. A hairline only survives at a boundary. */
+[data-theme="dark"]:not(.top-nav) + [data-theme="dark"],
+[data-theme="light"]:not(.top-nav) + [data-theme="light"] {
+  border-top-color: transparent;
+}
+
 /* --- Buttons ---------------------------------------------------------------
    Zero radius, hairline border, no fill. A filled pill is the SaaS-template
    default the brand deliberately avoids; the primary action earns emphasis from
    the ink ground, not from a rounded corner. */
 
 .btn {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   gap: var(--s-2);
@@ -206,12 +244,32 @@ hr {
   background: transparent;
   color: var(--ink);
   cursor: pointer;
-  transition: background-color 0.18s ease, color 0.18s ease;
+  transition: color var(--d-fast) var(--ease-out),
+    border-color var(--d-fast) var(--ease-out);
   text-decoration: none;
 }
 
-.btn:hover {
+/* The fill sweeps in from the left rather than snapping. isolation + z-index -1
+   keeps the sweep above the button's own ground and below its label without
+   wrapping the label in an element. */
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--d-base) var(--ease-out);
+}
+
+.btn:hover::before,
+.btn:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.btn:hover,
+.btn:focus-visible {
   color: var(--paper);
   text-decoration: none;
 }
@@ -221,8 +279,14 @@ hr {
   color: var(--paper);
 }
 
-.btn-primary:hover {
-  background: transparent;
+/* Primary already stands on ink, so its sweep runs the other way: paper comes
+   across and the label goes back to ink. */
+.btn-primary::before {
+  background: var(--paper);
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
   color: var(--ink);
 }
 
@@ -231,20 +295,39 @@ hr {
   color: var(--dim);
 }
 
-.btn-quiet:hover {
+/* The quiet button never fills: it earns its emphasis by its rule going ink. */
+.btn-quiet::before {
+  background: transparent;
+}
+
+.btn-quiet:hover,
+.btn-quiet:focus-visible {
   background: transparent;
   border-color: var(--ink);
   color: var(--ink);
 }
 
-/* --- Navigation ------------------------------------------------------------ */
+/* --- Navigation ------------------------------------------------------------
+   The nav carries the dark tokens by default (see tokens.css) because every
+   page opens on a dark hero; chrome.js flips it to data-theme="light" while a
+   paper section is under its bottom edge, and the 250ms transition is what
+   makes that read as one surface rather than a flicker. It also hides on scroll
+   down and returns on scroll up. */
 
 .top-nav {
+  --nav-h: 4rem;
   position: sticky;
   top: 0;
   z-index: 50;
   background: var(--paper);
   border-bottom: 1px solid var(--rule);
+  transition: background-color 250ms var(--ease-out),
+    border-color 250ms var(--ease-out), transform var(--d-base) var(--ease-out);
+  view-transition-name: top-nav;
+}
+
+.top-nav.is-hidden {
+  transform: translateY(-100%);
 }
 
 .top-nav-inner {
@@ -304,6 +387,97 @@ hr {
   text-transform: uppercase;
 }
 
+/* The one persistent call to action lives in the bar, so it is sized to the bar
+   rather than to a hero. */
+.nav-links .btn {
+  padding: 0.4rem 0.85rem;
+  font-size: var(--t-micro);
+  letter-spacing: 0.06em;
+  /* .nav-links a paints every link --dim, which on a filled button is text
+     that cannot be read. The button keeps its own two colours. */
+  color: var(--ink);
+}
+
+.nav-links .btn-primary {
+  color: var(--paper);
+}
+
+.nav-links .btn:hover,
+.nav-links .btn:focus-visible {
+  color: var(--paper);
+}
+
+.nav-links .btn-primary:hover,
+.nav-links .btn-primary:focus-visible {
+  color: var(--ink);
+}
+
+/* --- Menu toggle -----------------------------------------------------------
+   A hairline text button, hidden above 40rem. The two bars are the only
+   pictogram on the site; they cross into an X while the panel is open. */
+
+.nav-toggle {
+  display: none;
+  align-items: center;
+  gap: var(--s-2);
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--t-micro);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color var(--d-fast) var(--ease-out);
+}
+
+.nav-toggle:hover {
+  border-color: var(--ink);
+}
+
+.nav-toggle-bars {
+  position: relative;
+  display: block;
+  width: 0.85rem;
+  height: 0.5rem;
+  flex: none;
+}
+
+.nav-toggle-bars span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: currentColor;
+  transition: transform var(--d-fast) var(--ease-out),
+    top var(--d-fast) var(--ease-out);
+}
+
+.nav-toggle-bars span:first-child {
+  top: 0;
+}
+
+.nav-toggle-bars span:last-child {
+  top: 100%;
+}
+
+.top-nav.is-open .nav-toggle-bars span:first-child {
+  top: 50%;
+  transform: rotate(45deg);
+}
+
+.top-nav.is-open .nav-toggle-bars span:last-child {
+  top: 50%;
+  transform: rotate(-45deg);
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
 /* --- Footer ---------------------------------------------------------------- */
 
 .site-footer {
@@ -344,8 +518,9 @@ hr {
 
 .js .reveal {
   opacity: 0;
-  transform: translateY(0.6rem);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: translateY(14px);
+  transition: opacity var(--d-slow) var(--ease-out),
+    transform var(--d-slow) var(--ease-out);
 }
 
 .js .reveal.is-visible {
@@ -353,11 +528,49 @@ hr {
   transform: none;
 }
 
+/* Stagger. chrome.js sets --i on each child of a [data-stagger] container at
+   runtime (never in source, so the markup stays free of numbers), and the
+   children walk in 60ms apart. */
+.js [data-stagger] > * {
+  transition-delay: calc(var(--i, 0) * 60ms);
+}
+
+/* --- Draw ------------------------------------------------------------------
+   A hairline that draws itself left to right when it enters view. The grammar
+   of the site is rules; this is the rules arriving rather than being placed. */
+
+.js .draw {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--d-slow) var(--ease-out);
+}
+
+.js .draw.is-visible {
+  transform: scaleX(1);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .js .reveal {
+  .js .reveal,
+  .js .draw {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+
+  .js [data-stagger] > * {
+    transition-delay: 0s;
+  }
+
+  .top-nav,
+  .nav-toggle,
+  .nav-toggle-bars span,
+  .btn,
+  .btn::before {
+    transition: none;
+  }
+
+  .top-nav.is-hidden {
+    transform: none;
   }
 }
 
@@ -369,6 +582,11 @@ hr {
     --s-7: 4.2rem;
   }
 
+  /* Two gates on the panel, both deliberate. Without JavaScript the toggle
+     cannot work, so .js. And without a .nav-toggle in the bar there is nothing
+     to open the panel with, so :has(.nav-toggle) — which keeps the pages that
+     have not yet been given the new nav block (and any browser without :has)
+     on the old wrapping row of links rather than with no navigation at all. */
   .top-nav-inner {
     flex-wrap: wrap;
     padding-top: var(--s-2);
@@ -379,9 +597,111 @@ hr {
     gap: var(--s-3);
   }
 
+  .js .top-nav:has(.nav-toggle) .top-nav-inner {
+    flex-wrap: nowrap;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .js .nav-toggle {
+    display: inline-flex;
+  }
+
+  /* The links become a full-viewport panel under the bar. They stay real links
+     in the DOM; the panel only decides when they are shown. */
+  .js .top-nav:has(.nav-toggle) .nav-links {
+    position: fixed;
+    top: var(--nav-h);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 49;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+    padding: var(--s-3) var(--s-4) var(--s-5);
+    background: var(--paper);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    overflow-y: auto;
+    transition: opacity var(--d-base) var(--ease-out),
+      visibility var(--d-base) var(--ease-out);
+  }
+
+  .js .top-nav.is-open:has(.nav-toggle) .nav-links {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .js .top-nav:has(.nav-toggle) .nav-links > * {
+    padding: var(--s-3) 0;
+    border-bottom: 1px solid var(--rule);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity var(--d-base) var(--ease-out),
+      transform var(--d-base) var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 60ms);
+  }
+
+  .js .top-nav.is-open:has(.nav-toggle) .nav-links > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  .js .top-nav:has(.nav-toggle) .nav-links a {
+    display: block;
+    font-size: var(--t-lede);
+    color: var(--ink);
+  }
+
+  .js .top-nav:has(.nav-toggle) .nav-links .nav-lang {
+    display: inline-block;
+    border: 1px solid var(--rule-strong);
+    font-size: var(--t-micro);
+  }
+
+  .js .top-nav:has(.nav-toggle) .nav-links .btn {
+    display: inline-flex;
+    padding: 0.6rem 1.1rem;
+    font-size: var(--t-caption);
+  }
+
+  .js .top-nav:has(.nav-toggle) .nav-links > .btn {
+    border-bottom: 1px solid var(--ink);
+    align-self: flex-start;
+    margin-top: var(--s-3);
+  }
+
+  /* The panel is a stretch-aligned column, so an inline-block chip would still
+     be pulled to the full width and read as an empty box with two words in it.
+     The language switch shrinks to its own content and keeps its hairline box,
+     and it is the one row that does not need a divider under it: it is last. */
+  .js .top-nav:has(.nav-toggle) .nav-links > .nav-lang {
+    align-self: flex-start;
+    padding: 0.2rem 0.5rem;
+    margin-top: var(--s-3);
+    border: 1px solid var(--rule-strong);
+  }
+
   .site-footer-inner {
     flex-direction: column;
     gap: var(--s-2);
+  }
+}
+
+@media (max-width: 40rem) and (prefers-reduced-motion: reduce) {
+  .js .top-nav:has(.nav-toggle) .nav-links,
+  .js .top-nav:has(.nav-toggle) .nav-links > * {
+    transition: none;
+    transition-delay: 0s;
+  }
+
+  .js .top-nav.is-open:has(.nav-toggle) .nav-links > * {
+    transform: none;
   }
 }
 
@@ -397,9 +717,14 @@ hr {
     display: none !important;
   }
 
-  .js .reveal {
+  .js .reveal,
+  .js .draw {
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  .js [data-stagger] > * {
+    transition-delay: 0s !important;
   }
 
   body {

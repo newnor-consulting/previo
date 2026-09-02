@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Previo — Intelligence from the public record</title>
+    <title>Previo · Intelligence from the public record</title>
     <meta name="description" content="Intelligence on the people, companies and supply chains behind your biggest decisions. Every finding opens to the record it came from.">
     <link rel="canonical" href="https://previo-group.com/">
     <link rel="alternate" hreflang="en" href="https://previo-group.com/">
@@ -11,9 +11,10 @@
     <link rel="alternate" hreflang="x-default" href="https://previo-group.com/">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://previo-group.com/">
-    <meta property="og:title" content="Previo — Intelligence from the public record">
+    <meta property="og:title" content="Previo · Intelligence from the public record">
     <meta property="og:description" content="Every finding opens to a source.">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="https://previo-group.com/assets/og-en.png">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/assets/tokens.css">
     <link rel="stylesheet" href="/assets/base.css">
@@ -24,75 +25,167 @@
 <nav class="top-nav">
     <div class="contain top-nav-inner">
         <a href="/" class="logo">Previo<span class="logo-dot">.</span></a>
-        <div class="nav-links">
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu">
+            <span class="nav-toggle-label">Menu</span>
+            <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span></span>
+        </button>
+        <div class="nav-links" id="site-menu">
             <a href="/method/">Method</a>
             <a href="/people/">People</a>
             <a href="/companies/">Companies</a>
             <a href="/evidence/">Evidence</a>
-            <a href="#" data-lead="contact">Contact</a>
+            <button type="button" class="btn btn-primary" data-lead="contact">Request access</button>
             <a href="/da/" class="nav-lang" hreflang="da">DA</a>
         </div>
     </div>
 </nav>
 
-<header class="hero">
-    <div class="contain">
-        <h1>Every finding opens<br>to a source.</h1>
-        <p class="lede">Intelligence on the people, companies and supply chains behind your biggest decisions — traced to the record, evidenced line by line, and signed before it reaches you.</p>
-        <div class="hero-actions">
-            <a href="#" data-lead="contact" class="btn btn-primary">Request access</a>
-            <a href="/method/" class="btn btn-quiet">How it works</a>
+<header class="hero" data-theme="dark">
+    <div class="contain hero-grid">
+        <div class="hero-copy">
+            <h1>Every finding<br>opens to a source.</h1>
+            <p class="lede">Intelligence on the people, companies and supply chains behind your biggest decisions. Every line is traced to the record it came from, and a person reads the report before it reaches you.</p>
+            <div class="hero-actions">
+                <button type="button" class="btn btn-primary" data-lead="contact">Request access</button>
+                <a href="/method/" class="btn btn-quiet">How it works</a>
+            </div>
+            <div class="hero-trust">
+                <span>UK &amp; EU</span>
+                <span>Regulated decisions</span>
+                <span>GDPR Article 6(1)(f)</span>
+            </div>
         </div>
-        <div class="hero-trust">
-            <span>UK &amp; EU</span>
-            <span>Regulated and reputation-sensitive decisions</span>
-            <span>GDPR Article 6(1)(f)</span>
-        </div>
+        <svg class="hero-piece" viewBox="0 0 640 400" role="img" aria-labelledby="hp-title">
+            <title id="hp-title">Four namesakes narrow to one subject, six public sources are read, three dated findings are struck, and a person signs the result.</title>
+            <g class="hp-namesakes" aria-hidden="true">
+                <text class="hp-name hp-name--ghost" x="24" y="34">M. Nielsen</text>
+                <text class="hp-name hp-name--ghost" x="24" y="58">M. Nielsen</text>
+                <text class="hp-name hp-name--ghost" x="24" y="82">M. Nielsen</text>
+                <text class="hp-name hp-name--ghost" x="24" y="106">M. Nielsen</text>
+            </g>
+            <g class="hp-subject">
+                <text class="hp-name" x="24" y="150">M. Nielsen</text>
+                <line class="hp-rule" pathLength="1" x1="24" y1="162" x2="190" y2="162"></line>
+                <text class="hp-id" x="24" y="182">SUBJECT REF 04-1179</text>
+            </g>
+            <g class="hp-sources">
+                <g class="hp-source">
+                    <path class="hp-connector" pathLength="1" d="M 192 162 H 250 V 34 H 392"></path>
+                    <text x="400" y="38">Company register</text>
+                </g>
+                <g class="hp-source">
+                    <path class="hp-connector" pathLength="1" d="M 192 162 H 268 V 62 H 392"></path>
+                    <text x="400" y="66">Statutory registers</text>
+                </g>
+                <g class="hp-source">
+                    <path class="hp-connector" pathLength="1" d="M 192 162 H 286 V 90 H 392"></path>
+                    <text x="400" y="94">Sanctions lists</text>
+                </g>
+                <g class="hp-source">
+                    <path class="hp-connector" pathLength="1" d="M 192 162 H 304 V 118 H 392"></path>
+                    <text x="400" y="122">Published reporting</text>
+                </g>
+                <g class="hp-source">
+                    <path class="hp-connector" pathLength="1" d="M 192 162 H 322 V 146 H 392"></path>
+                    <text x="400" y="150">Property register</text>
+                </g>
+                <g class="hp-source">
+                    <path class="hp-connector" pathLength="1" d="M 192 162 H 340 V 174 H 392"></path>
+                    <text x="400" y="178">Official gazette</text>
+                </g>
+            </g>
+            <g class="hp-rules">
+                <line class="hp-rule" pathLength="1" x1="24" y1="216" x2="616" y2="216"></line>
+                <line class="hp-rule" pathLength="1" x1="24" y1="350" x2="616" y2="350"></line>
+            </g>
+            <g class="hp-findings">
+                <g class="hp-finding">
+                    <line class="hp-connector" pathLength="1" x1="24" y1="248" x2="52" y2="248"></line>
+                    <text class="hp-date" x="64" y="252">2019</text>
+                    <text x="116" y="252">Directorship, dissolved company</text>
+                    <text class="hp-punch" x="616" y="252" text-anchor="end">RECORDED</text>
+                </g>
+                <g class="hp-finding">
+                    <line class="hp-connector" pathLength="1" x1="24" y1="286" x2="52" y2="286"></line>
+                    <text class="hp-date" x="64" y="290">2021</text>
+                    <text x="116" y="290">Bankruptcy notice</text>
+                    <text class="hp-punch" x="616" y="290" text-anchor="end">PUBLISHED</text>
+                </g>
+                <g class="hp-finding">
+                    <line class="hp-connector" pathLength="1" x1="24" y1="324" x2="52" y2="324"></line>
+                    <text class="hp-date" x="64" y="328">2024</text>
+                    <text x="116" y="328">Enforcement order</text>
+                    <text class="hp-punch hp-punch--severe" x="616" y="328" text-anchor="end">ORDERED</text>
+                </g>
+            </g>
+            <g class="hp-signature">
+                <text class="hp-sign" x="24" y="380">Read and released by a person</text>
+                <line class="hp-sign-rule" pathLength="1" x1="24" y1="390" x2="248" y2="390"></line>
+            </g>
+        </svg>
     </div>
 </header>
 
-<section class="section">
+<section class="section" data-theme="light">
     <div class="contain">
         <p class="label">The problem</p>
         <div class="split">
             <div>
-                <h2>The record was always<br>there. Nobody read it.</h2>
+                <h2>Nobody read the record that was already there.</h2>
             </div>
             <div class="reveal">
-                <p class="prose">Almost every appointment that ends in a headline was avoidable. The bankruptcy, the disqualification, the pattern of dismissals, the owner nobody could name — it sat in a public register or a published report, months or years before the decision was taken, and no one went and looked.</p>
-                <p class="prose">Previo goes and looks. Systematically, in two languages, across sanctions lists, company registers, official gazettes and published reporting — and returns an assessment where every line opens to the record behind it.</p>
+                <p class="prose">Almost every appointment that ends in a headline was avoidable. The bankruptcy, the disqualification, the pattern of dismissals, the owner nobody could name: all of it sat in a public register or a published report, months or years before the decision was taken. No one went and looked.</p>
+                <p class="prose">Previo goes and looks. Systematically, in two languages, across sanctions lists, company registers, official gazettes and published reporting. What comes back is an assessment where every line opens to the record behind it.</p>
                 <p class="prose"><a href="/evidence/">Two cases where it was all public &rarr;</a></p>
             </div>
         </div>
     </div>
 </section>
 
-<section class="section">
+<section class="section" data-theme="dark">
     <div class="contain">
         <p class="label">One engine, three subjects</p>
         <h2>Whatever the decision<br>turns on, we can establish it.</h2>
         <p class="prose">Resolve the entity. Follow the ownership. Corroborate the record. The same engine, pointed at whichever subject you are about to put your name behind.</p>
-        <div class="lines reveal">
-            <div class="line-tile">
+        <div class="lines">
+            <div class="line-tile reveal">
                 <h3>People</h3>
-                <p>Sanctions and watchlists, adverse media in English and Danish, directorships and disqualifications, statutory registers — scored, itemised, and signed. For appointments where a bad hire is a regulatory event.</p>
+                <p>Sanctions and watchlists, adverse media in English and Danish, directorships and disqualifications, statutory registers. Each finding carries its date, its source and its deduction from the score. For appointments where a bad hire is a regulatory event.</p>
                 <a href="/people/">Person screening &rarr;</a>
             </div>
-            <div class="line-tile">
+            <div class="line-tile reveal">
                 <h3>Companies</h3>
-                <p>Ownership and control, traced upward through holding structures to the people who actually hold the company — and those people screened in turn, with their other companies examined.</p>
+                <p>Ownership and control, traced upward through holding structures to the people who actually hold the company. Those people are then screened in turn, with their other companies examined.</p>
                 <a href="/companies/">Corporate due diligence &rarr;</a>
             </div>
-            <div class="line-tile">
+            <div class="line-tile reveal">
                 <h3>Supply chains</h3>
                 <p>Where a thing came from and how far back it can be evidenced, tier by tier. Built for the defence sector.</p>
                 <a href="/supply-chain/">The defence line &rarr;</a>
             </div>
         </div>
+        <div class="stat-band" data-stagger>
+            <div class="reveal">
+                <div class="stat-figure" data-count>3</div>
+                <p class="stat-note">Subjects: people, companies and supply chains.</p>
+            </div>
+            <div class="reveal">
+                <div class="stat-figure" data-count>10</div>
+                <p class="stat-note">Named sources on the person register.</p>
+            </div>
+            <div class="reveal">
+                <div class="stat-figure" data-count>2</div>
+                <p class="stat-note">Languages read in full: English and Danish.</p>
+            </div>
+            <div class="reveal">
+                <div class="stat-figure" data-count>1</div>
+                <p class="stat-note">A person reads and releases every report.</p>
+            </div>
+        </div>
     </div>
 </section>
 
-<section class="section">
+<section class="section" data-theme="light">
     <div class="contain">
         <p class="label">Why it holds up</p>
         <div class="split">
@@ -100,33 +193,33 @@
                 <h2>Built to survive<br>being checked.</h2>
                 <p class="prose"><a href="/method/">The method in full &rarr;</a></p>
             </div>
-            <div class="steps reveal">
-                <div class="step">
+            <div class="steps steps--tracked" data-stagger>
+                <div class="step reveal">
                     <span class="step-num">01</span>
                     <div>
                         <div class="step-title">The right subject, first</div>
                         <p class="step-desc">Identity is resolved before a single search runs, so findings land on your subject and not on their namesake. It is the difference between intelligence and noise.</p>
                     </div>
                 </div>
-                <div class="step">
+                <div class="step reveal">
                     <span class="step-num">02</span>
                     <div>
                         <div class="step-title">Every finding, sourced and dated</div>
                         <p class="step-desc">Each entry links to the record it came from and is dated by the event, not the article. Open it yourself. Take it to a regulator, a board, or a tribunal.</p>
                     </div>
                 </div>
-                <div class="step">
+                <div class="step reveal">
                     <span class="step-num">03</span>
                     <div>
                         <div class="step-title">Scored, and taken apart</div>
                         <p class="step-desc">A score from 0 to 100 with every deduction itemised, so you can trace the number to the finding and the finding to the source. No black box.</p>
                     </div>
                 </div>
-                <div class="step">
+                <div class="step reveal">
                     <span class="step-num">04</span>
                     <div>
                         <div class="step-title">Signed by a person</div>
-                        <p class="step-desc">An adjudication pass strips anything that will not stand up, then a person reads the report and signs it. A person releases every report.</p>
+                        <p class="step-desc">An adjudication pass strips anything that will not stand up. Then a person reads the report and signs it. A person releases every report.</p>
                     </div>
                 </div>
             </div>
@@ -134,7 +227,7 @@
     </div>
 </section>
 
-<section class="section">
+<section class="section" data-theme="light">
     <div class="contain">
         <p class="label">What it costs to skip</p>
         <h2>Two Danish cases where<br>the evidence was in plain sight.</h2>
@@ -145,7 +238,7 @@
                 <div class="study-figure">4 days</div>
                 <div class="study-figure-label">Election to expulsion</div>
                 <div class="study-title">Four findings, all before the ballot</div>
-                <p class="study-lede">A bankruptcy with DKK 1.6m in claims, a labour enforcement order, union safety complaints and municipal billing complaints — every one of them public before election day.</p>
+                <p class="study-lede">A bankruptcy with DKK 1.6m in claims, a labour enforcement order, union safety complaints and municipal billing complaints. Every one of them was public before election day.</p>
             </a>
             <a href="/case-study-2.html" class="study-card">
                 <div class="study-kicker">Case 02 · 2022&ndash;2023</div>
@@ -158,11 +251,13 @@
     </div>
 </section>
 
-<section class="cta">
+<section class="cta" data-theme="dark">
     <div class="contain">
         <h2>Ask a better question.</h2>
         <p class="prose">Tell us the decision you are about to take. We will tell you what the record can establish about it.</p>
-        <a href="#" data-lead="contact" class="btn btn-primary">Request access</a>
+        <div class="cta-actions hero-actions">
+            <button type="button" class="btn btn-primary" data-lead="contact">Request access</button>
+        </div>
     </div>
 </section>
 
@@ -183,6 +278,7 @@
 </footer>
 
 <script src="/assets/chrome.js" defer></script>
+<script src="/assets/hero.js" defer></script>
 <script src="/assets/lead-form.js" defer></script>
 </body>
 </html>

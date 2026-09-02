@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Previo — What an engagement costs</title>
-    <meta name="description" content="Priced per assessment, by subject and by depth. Every report runs the full source set and is signed before release — there are no feature tiers.">
+    <title>Previo · What an engagement costs</title>
+    <meta name="description" content="Priced per assessment, by subject and by depth. Every report runs the full source set and is signed before release. There are no feature tiers.">
     <link rel="canonical" href="https://previo-group.com/people/pricing/">
     <link rel="alternate" hreflang="en" href="https://previo-group.com/people/pricing/">
     <link rel="alternate" hreflang="da" href="https://previo-group.com/da/personer/priser/">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://previo-group.com/people/pricing/">
-    <meta property="og:title" content="Previo — What an engagement costs">
+    <meta property="og:title" content="Previo · What an engagement costs">
     <meta property="og:description" content="Priced per assessment, by subject and by depth.">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="https://previo-group.com/assets/og-en.png">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/assets/tokens.css">
     <link rel="stylesheet" href="/assets/base.css">
@@ -23,41 +24,45 @@
 <nav class="top-nav">
     <div class="contain top-nav-inner">
         <a href="/" class="logo">Previo<span class="logo-dot">.</span></a>
-        <div class="nav-links">
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu">
+            <span class="nav-toggle-label">Menu</span>
+            <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span></span>
+        </button>
+        <div class="nav-links" id="site-menu">
             <a href="/method/">Method</a>
-            <a href="/people/" aria-current="page">People</a>
+            <a href="/people/">People</a>
             <a href="/companies/">Companies</a>
             <a href="/evidence/">Evidence</a>
-            <a href="#" data-lead="contact">Contact</a>
+            <button type="button" class="btn btn-primary" data-lead="contact">Request access</button>
             <a href="/da/personer/priser/" class="nav-lang" hreflang="da">DA</a>
         </div>
     </div>
 </nav>
 
-<header class="hero">
+<header class="hero" data-theme="dark">
     <div class="contain">
         <p class="label">Pricing</p>
         <h1>What an engagement costs.</h1>
         <p class="lede">Priced per assessment, by subject and by depth. No feature tiers: every report runs the full source set for its subject and is signed before release. What changes is volume and the commercial wrapper.</p>
         <div class="hero-actions">
-            <a href="#" data-lead="contact" class="btn btn-primary">Ask for a quote</a>
+            <button type="button" class="btn btn-primary" data-lead="contact">Ask for a quote</button>
         </div>
     </div>
 </header>
 
-<section class="section">
+<section class="section" data-theme="light">
     <div class="contain">
         <p class="label">What shapes it</p>
-        <div class="plans reveal">
-            <div class="plan">
+        <div class="plans" data-stagger>
+            <div class="plan reveal">
                 <div class="plan-name">The subject</div>
                 <p class="plan-desc">A person and a company are different pieces of work. A company assessment traces an ownership structure and then screens everyone it reaches, so it is priced against what it uncovers rather than as a unit.</p>
             </div>
-            <div class="plan">
+            <div class="plan reveal">
                 <div class="plan-name">The depth</div>
-                <p class="plan-desc">A standard assessment covers the subject. A deeper one follows the associates and connected entities the first pass surfaces — the layer where nominee arrangements actually live.</p>
+                <p class="plan-desc">A standard assessment covers the subject. A deeper one follows the associates and connected entities the first pass surfaces. That is the layer where nominee arrangements actually live.</p>
             </div>
-            <div class="plan">
+            <div class="plan reveal">
                 <div class="plan-name">The cadence</div>
                 <p class="plan-desc">A single appointment is quoted on its own. A programme with a regular cadence is committed against volume, and that is where the per-assessment figure falls sharply.</p>
             </div>
@@ -65,7 +70,7 @@
     </div>
 </section>
 
-<section class="section">
+<section class="section" data-theme="dark">
     <div class="contain">
         <p class="label">Included in every assessment</p>
         <div class="split">
@@ -93,7 +98,7 @@
     </div>
 </section>
 
-<section class="section">
+<section class="section" data-theme="light">
     <div class="contain">
         <p class="label">Questions</p>
         <div class="split">
@@ -130,10 +135,10 @@
     </div>
 </section>
 
-<section class="cta">
+<section class="cta" data-theme="dark">
     <div class="contain">
-        <h2>Tell us the decision.<br>We will quote the work.</h2>
-        <a href="#" data-lead="contact" class="btn btn-primary">Ask for a quote</a>
+        <h2>Tell us the decision<br>and we will quote it.</h2>
+        <button type="button" class="btn btn-primary" data-lead="contact">Ask for a quote</button>
     </div>
 </section>
 

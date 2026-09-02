@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Previo — Om</title>
+    <title>Previo · Om</title>
     <meta name="description" content="Previo er et produkt fra NewNor Consulting ApS, CVR 43419536, København. Efterretning fra det offentlige register, bygget så hvert fund kan efterprøves.">
     <link rel="canonical" href="https://previo-group.com/da/om/">
     <link rel="alternate" hreflang="da" href="https://previo-group.com/da/om/">
     <link rel="alternate" hreflang="en" href="https://previo-group.com/about/">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://previo-group.com/da/om/">
-    <meta property="og:title" content="Previo — Om">
+    <meta property="og:title" content="Previo · Om">
     <meta property="og:description" content="Et produkt fra NewNor Consulting ApS, København.">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="https://previo-group.com/assets/og-da.png">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/assets/tokens.css">
     <link rel="stylesheet" href="/assets/base.css">
@@ -23,26 +24,30 @@
 <nav class="top-nav">
     <div class="contain top-nav-inner">
         <a href="/da/" class="logo">Previo<span class="logo-dot">.</span></a>
-        <div class="nav-links">
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu">
+            <span class="nav-toggle-label">Menu</span>
+            <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span></span>
+        </button>
+        <div class="nav-links" id="site-menu">
             <a href="/da/metode/">Metode</a>
             <a href="/da/personer/">Personer</a>
             <a href="/da/virksomheder/">Virksomheder</a>
             <a href="/da/dokumentation/">Dokumentation</a>
-            <a href="#" data-lead="contact">Kontakt</a>
+            <button type="button" class="btn btn-primary" data-lead="contact">Anmod om adgang</button>
             <a href="/about/" class="nav-lang" hreflang="en">EN</a>
         </div>
     </div>
 </nav>
 
-<header class="hero">
+<header class="hero" data-theme="dark">
     <div class="contain">
         <p class="label">Om</p>
         <h1>Et dansk<br>efterretningsselskab.</h1>
-        <p class="lede">Previo er et produkt fra NewNor Consulting ApS, København. Vi fastslår, hvad det offentlige register rummer om de personer, virksomheder og forsyningskæder, der ligger bag afgørende beslutninger — og vi bygger hver vurdering, så den kan efterprøves.</p>
+        <p class="lede">Previo er et produkt fra NewNor Consulting ApS, København. Vi fastslår, hvad det offentlige register rummer om de personer, virksomheder og forsyningskæder, der ligger bag afgørende beslutninger, og vi bygger hver vurdering, så den kan efterprøves.</p>
     </div>
 </header>
 
-<section class="section">
+<section class="section" data-theme="light">
     <div class="contain">
         <div class="split">
             <div>
@@ -51,29 +56,29 @@
             <div class="prose reveal">
                 <p>Den etablerede model i dette marked er en proprietær database: betal os, stol på boksen, tag svaret. Den fungerer kommercielt og svigter præcis, når det gælder, for når et fund bliver bestridt, er der intet at åbne.</p>
                 <p>Vi byggede det modsatte. Hvert Previo-fund henviser til den primære optegnelse, det stammer fra, dateret efter selve begivenheden, så vurderingen kan lægges foran en tilsynsmyndighed, en bestyrelse eller en købers advokat og holde til læsningen. Det kan ingen etableret udbyder, der sælger adgang til en sort boks, sige.</p>
-                <p>Den samme motor kører mod en person, en virksomhed eller en forsyningskæde. Det, der skifter, er hvilke registre der er relevante — ikke beviskravet.</p>
+                <p>Den samme motor kører mod en person, en virksomhed eller en forsyningskæde. Det, der skifter, er hvilke registre der er relevante. Beviskravet skifter ikke.</p>
             </div>
         </div>
     </div>
 </section>
 
-<section class="section">
+<section class="section" data-theme="dark">
     <div class="contain">
         <p class="label">Sådan arbejder vi</p>
-        <div class="grid-2 reveal">
-            <div class="grid-item">
+        <div class="grid-2" data-stagger>
+            <div class="grid-item reveal">
                 <h3>Selektive</h3>
                 <p>Vi tager opgaver, hvor registret rent faktisk kan besvare spørgsmålet. Kan det ikke, siger vi det tidligt frem for at fakturere en søgning, der aldrig ville lande.</p>
             </div>
-            <div class="grid-item">
+            <div class="grid-item reveal">
                 <h3>Underskrevet, ikke automatisk</h3>
                 <p>Et menneske læser og frigiver hver rapport. Navngiven ansvarlighed er den ene troværdighedsvaluta, der bliver svagere med skala frem for stærkere.</p>
             </div>
-            <div class="grid-item">
+            <div class="grid-item reveal">
                 <h3>Ingen anbefaling</h3>
                 <p>Vi fastslår, hvad registret viser. Beslutningen forbliver din, og det er dét, der gør en vurdering brugbar som dokumentation frem for som en andens mening.</p>
             </div>
-            <div class="grid-item">
+            <div class="grid-item reveal">
                 <h3>Dansk ret</h3>
                 <p>Vores vilkår er underlagt dansk ret og Københavns domstole. Personoplysninger behandles efter GDPR med Datatilsynet som tilsynsmyndighed.</p>
             </div>
@@ -81,7 +86,7 @@
     </div>
 </section>
 
-<section class="section">
+<section class="section" data-theme="light">
     <div class="contain">
         <p class="label">Selskabet</p>
         <div class="split">
@@ -101,10 +106,12 @@
     </div>
 </section>
 
-<section class="cta">
+<section class="cta" data-theme="dark">
     <div class="contain">
         <h2>Stil et bedre spørgsmål.</h2>
-        <a href="#" data-lead="contact" class="btn btn-primary">Kom i kontakt</a>
+        <div class="cta-actions hero-actions">
+            <button type="button" class="btn btn-primary" data-lead="contact">Kom i kontakt</button>
+        </div>
     </div>
 </section>
 

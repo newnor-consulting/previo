@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Previo — Personscreening</title>
-    <meta name="description" content="Sanktioner, negativ medieomtale, ledelseshverv, konkurskarantæne og offentlige registre — scoret, specificeret og underskrevet.">
+    <title>Previo · Personscreening</title>
+    <meta name="description" content="Sanktioner, negativ medieomtale, ledelseshverv, konkurskarantæne og offentlige registre. Hvert fund er specificeret, og et menneske skriver under.">
     <link rel="canonical" href="https://previo-group.com/da/personer/">
     <link rel="alternate" hreflang="da" href="https://previo-group.com/da/personer/">
     <link rel="alternate" hreflang="en" href="https://previo-group.com/people/">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://previo-group.com/da/personer/">
-    <meta property="og:title" content="Previo — Personscreening">
+    <meta property="og:title" content="Previo · Personscreening">
     <meta property="og:description" content="Alt hvad registret rummer om din kandidat, i én underskrevet vurdering.">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="https://previo-group.com/assets/og-da.png">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/assets/tokens.css">
     <link rel="stylesheet" href="/assets/base.css">
@@ -23,48 +24,52 @@
 <nav class="top-nav">
     <div class="contain top-nav-inner">
         <a href="/da/" class="logo">Previo<span class="logo-dot">.</span></a>
-        <div class="nav-links">
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu">
+            <span class="nav-toggle-label">Menu</span>
+            <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span></span>
+        </button>
+        <div class="nav-links" id="site-menu">
             <a href="/da/metode/">Metode</a>
             <a href="/da/personer/" aria-current="page">Personer</a>
             <a href="/da/virksomheder/">Virksomheder</a>
             <a href="/da/dokumentation/">Dokumentation</a>
-            <a href="#" data-lead="contact">Kontakt</a>
+            <button type="button" class="btn btn-primary" data-lead="contact">Anmod om adgang</button>
             <a href="/people/" class="nav-lang" hreflang="en">EN</a>
         </div>
     </div>
 </nav>
 
-<header class="hero">
+<header class="hero" data-theme="dark">
     <div class="contain">
         <p class="label">Personer</p>
         <h1>Alt hvad registret rummer<br>om din kandidat.</h1>
-        <p class="lede">Sanktioner, negativ medieomtale, ledelseshverv, konkurskarantæne, insolvens og offentlige registre — søgt på dansk og engelsk, scoret, specificeret og underskrevet, før det når dig.</p>
+        <p class="lede">Sanktioner, negativ medieomtale, ledelseshverv, konkurskarantæne, insolvens og offentlige registre, søgt på dansk og engelsk. Hvert fund bærer sin dato og sin kilde, og et menneske skriver under, før rapporten når dig.</p>
         <div class="hero-actions">
-            <a href="#" data-lead="contact" class="btn btn-primary">Anmod om adgang</a>
+            <button type="button" class="btn btn-primary" data-lead="contact">Anmod om adgang</button>
             <a href="/da/personer/priser/" class="btn btn-quiet">Hvad en opgave koster</a>
         </div>
     </div>
 </header>
 
-<section class="section">
+<section class="section" data-theme="light">
     <div class="contain">
         <p class="label">Beslutningen, dette tjener</p>
         <div class="split">
             <div>
-                <h2>Egnethed er et skøn.<br>Giv det et grundlag.</h2>
+                <h2>Giv skønnet et grundlag,<br>du kan vise frem.</h2>
             </div>
             <div class="prose reveal">
-                <p>Spørgsmålet er sjældent, om kandidaten virker rigtig til en samtale. Det er, om der ligger noget i det offentlige register, som en tilsynsmyndighed, en journalist eller en bestyrelse finder senere — og om du kan dokumentere, at du så efter, før du udnævnte.</p>
+                <p>Spørgsmålet er sjældent, om kandidaten virker rigtig til en samtale. Det er, om der ligger noget i det offentlige register, som en tilsynsmyndighed, en journalist eller en bestyrelse finder senere, og om du kan dokumentere, at du så efter, før du udnævnte.</p>
                 <p>Previo besvarer begge dele. Hvert fund dateret og knyttet til den optegnelse, det stammer fra, og et revisionsspor, der viser, at tjekket blev kørt, hvornår og mod hvad.</p>
             </div>
         </div>
     </div>
 </section>
 
-<section class="section">
+<section class="section" data-theme="dark">
     <div class="contain">
         <p class="label">Hvad vi søger i</p>
-        <h2>Ti kilder. Én vurdering.</h2>
+        <h2>Ti kilder, samlet i én vurdering.</h2>
         <p class="prose">Hver kilde fastslår noget bestemt. Her er hele sættet, og hvad hver enkelt kan fortælle dig.</p>
         <div class="register-scroll reveal">
             <table class="register">
@@ -143,7 +148,7 @@
     </div>
 </section>
 
-<section class="section">
+<section class="section" data-theme="light">
     <div class="contain">
         <p class="label">Det andet gennemløb</p>
         <div class="split">
@@ -152,13 +157,13 @@
             </div>
             <div class="prose reveal">
                 <p>Et første gennemløb finder det, der er registreret på et navn. De interessante konstruktioner er sjældent registreret på det navn, du fik oplyst.</p>
-                <p>Hvor det første gennemløb bringer en ægtefælle, en forretningspartner eller et familiemedlem frem med en væsentlig forbindelse, kører Previo et andet, krydsrefereret gennemløb over dem — den klassiske vej for stråmandskonstruktioner og for værdier parkeret ét skridt fra emnet. Det er den del, manuel vetting næsten aldrig når.</p>
+                <p>Hvor det første gennemløb bringer en ægtefælle, en forretningspartner eller et familiemedlem frem med en væsentlig forbindelse, kører Previo et andet, krydsrefereret gennemløb over dem. Det er den klassiske vej for stråmandskonstruktioner og for værdier parkeret ét skridt fra emnet. Det er den del, manuel vetting næsten aldrig når.</p>
             </div>
         </div>
     </div>
 </section>
 
-<section class="section">
+<section class="section" data-theme="dark">
     <div class="contain">
         <p class="label">Sådan læses resultatet</p>
         <div class="split">
@@ -167,7 +172,7 @@
                 <p class="prose">Rapporten er produktet. Tallet er stenografien.</p>
             </div>
             <div class="reveal">
-                <p class="prose">Et emne begynder på 100, og hvert fradrag er specificeret, så du kan spore tallet til fundet og fundet til kilden. Tærsklerne følger rollens niveau — en udnævnelse til offentligt hverv skal højere op end en medarbejderrolle — så båndene nedenfor er standarden, ikke selve skalaen.</p>
+                <p class="prose">Et emne begynder på 100, og hvert fradrag er specificeret, så du kan spore tallet til fundet og fundet til kilden. Tærsklerne følger rollens niveau: en udnævnelse til offentligt hverv skal højere op end en medarbejderrolle. Båndene nedenfor er standarden, ikke selve skalaen.</p>
                 <div class="band">
                     <div class="band-range">80&ndash;100</div>
                     <div>
@@ -195,7 +200,7 @@
     </div>
 </section>
 
-<section class="section">
+<section class="section" data-theme="light">
     <div class="contain">
         <p class="label">Samtykke og retsgrundlag</p>
         <div class="split">
@@ -203,7 +208,7 @@
                 <h2>Rent at køre,<br>rent at forsvare.</h2>
             </div>
             <div class="prose reveal">
-                <p>Kandidaten modtager en sikker invitation og giver samtykke, før noget kører, og samtykket kan tilbagekaldes når som helst før frigivelse. Behandlingen sker efter GDPR artikel 6, stk. 1, litra f — legitim interesse — med en interesseafvejning tilgængelig på anmodning og indsigtsanmodninger håndteret som en selvfølge.</p>
+                <p>Kandidaten modtager en sikker invitation og giver samtykke, før noget kører, og samtykket kan tilbagekaldes når som helst før frigivelse. Behandlingen sker efter GDPR artikel 6, stk. 1, litra f om legitim interesse. En interesseafvejning er tilgængelig på anmodning, og indsigtsanmodninger håndteres som en selvfølge.</p>
                 <p>Opbevaring følger dine egne forpligtelser. Revisionssporet følger med rapporten, hvilket er præcis det, du vil have, når nogen to år senere spørger, hvad du vidste og hvornår.</p>
                 <p><a href="/da/persondatapolitik/">Sådan behandler vi personoplysninger &rarr;</a></p>
             </div>
@@ -211,10 +216,12 @@
     </div>
 </section>
 
-<section class="cta">
+<section class="cta" data-theme="dark">
     <div class="contain">
         <h2>Screen den udnævnelse,<br>du ikke må ramme forkert.</h2>
-        <a href="#" data-lead="contact" class="btn btn-primary">Anmod om adgang</a>
+        <div class="cta-actions hero-actions">
+            <button type="button" class="btn btn-primary" data-lead="contact">Anmod om adgang</button>
+        </div>
     </div>
 </section>
 
