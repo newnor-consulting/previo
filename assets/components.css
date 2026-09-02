@@ -1346,3 +1346,317 @@
     display: none !important;
   }
 }
+
+/* ===========================================================================
+   Landing page v2: the thread, the tiles, the specimen frame, the access beat.
+
+   Same two rules as everything above. No colour literal (tokens only), and
+   every moving thing has a finished frame that is reached with the script dead
+   or with prefers-reduced-motion set.
+   =========================================================================== */
+
+/* --- The thread ------------------------------------------------------------
+   One oxblood hairline that runs the length of the page and draws with reading
+   position: a spine in the left gutter, a tick into every anchor, a small
+   square node at each tick that fills as the line reaches it.
+
+   Oxblood is the finding colour and this is the path a finding travels, which
+   is the only reason the accent is allowed a second use.
+
+   The svg is built by chrome.js as the last child of `.thread-scope`, so with
+   scripting off there is no thread at all, which is the right outcome for a
+   decorative line. Themed sections set background and colour only and open no
+   stacking context, so one positioned svg paints above every ground the page
+   changes to on the way down. */
+
+.thread-scope {
+  position: relative;
+}
+
+.thread {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: visible;
+  color: var(--thread-line);
+}
+
+/* The viewBox is authored in page pixels, so geometry maps one to one and the
+   hairline stays a hairline whatever the height of the scope. */
+.thread path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.thread-node {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  transition: fill var(--d-fast) var(--ease-out);
+}
+
+.thread-node.is-threaded {
+  fill: currentColor;
+}
+
+/* The path carries pathLength="1", so one dash of length 1 is the whole line
+   whatever its real geometry, and the offset is the reading position read
+   straight off `--progress`. */
+.js .thread path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--progress, 0));
+  transition: stroke-dashoffset 120ms linear;
+}
+
+/* Where scroll-driven animation exists, CSS draws the line and the JavaScript
+   loop is left the cheap job of lighting the nodes. The range below is the same
+   reading line the fallback computes, 60% of the viewport crossing the svg,
+   written as an offset into the cover range. */
+@supports (animation-timeline: view()) {
+  /* The timeline is NAMED and declared on the svg rather than taken as a bare
+     view() on the path, because a bare view() would make the PATH the subject
+     and a path is measured by its bounding box: it starts at the full stop and
+     ends at the last tick, which is about 600px shorter than the scope. That
+     ran the drawn tip roughly a fifth of the page ahead of the nodes the loop
+     lights, so the line arrived somewhere before the mark did. The svg spans
+     the scope exactly, which is what the JavaScript formula measures too. */
+  .js .thread {
+    view-timeline-name: --previo-thread;
+  }
+
+  .js .thread path {
+    transition: none;
+    animation: previo-draw-thread linear both;
+    animation-timeline: --previo-thread;
+    animation-range: cover 40vh cover calc(100% - 60vh);
+  }
+}
+
+@keyframes previo-draw-thread {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* --- Product tiles ---------------------------------------------------------
+   Three whole-tile links under the headline. The big label is the plain
+   description, the small mono label is the product name, and each carries a
+   micro-visual in the brand grammar.
+
+   The DEFAULT state of every piece class below is the FINISHED frame: nothing
+   here is hidden waiting for a script. chrome.js plays the assembly once on
+   reveal and again on hover or focus, and that is all it does. */
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--s-4);
+  margin-top: var(--s-5);
+}
+
+.tile {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--rule-strong);
+  transition: border-color var(--d-fast) var(--ease-out);
+}
+
+.tile:hover,
+.tile:focus-visible {
+  border-color: var(--ink);
+  text-decoration: none;
+}
+
+/* The global teal outline already applies; the tile only asks for more room,
+   because at the default offset the outline sits on the visual. */
+.tile:focus-visible {
+  outline-offset: 6px;
+}
+
+.tile-visual {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  overflow: visible;
+  color: var(--ink);
+  margin-bottom: var(--s-3);
+}
+
+.tile h3 {
+  font-family: var(--font-sans);
+  font-size: var(--t-body);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0;
+  color: var(--ink);
+  margin-bottom: var(--s-2);
+}
+
+.tile p {
+  font-size: var(--t-caption);
+  color: var(--dim);
+  margin-bottom: var(--s-2);
+}
+
+.tile-ref {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mid);
+}
+
+/* Piece parts. Colour arrives through `color:` on these classes with
+   stroke="currentColor" or fill="currentColor" in the markup, so a piece
+   inverts with its section like everything else. Sizes are px against the
+   viewBox the tile authors. */
+
+.tp-rule,
+.tp-connector {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+/* A drawn part is fully drawn at rest. chrome.js plays it from offset 1. */
+.tp-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+.tp-box {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  color: var(--rule-strong);
+}
+
+.tp-mono {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  fill: currentColor;
+  color: var(--dim);
+}
+
+.tp-name {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  fill: currentColor;
+}
+
+.tp-ghost {
+  color: var(--mid);
+}
+
+.tp-severe {
+  color: var(--severe);
+}
+
+/* --- The specimen frame ----------------------------------------------------
+   A white PDF page cannot sit straight on the ground: on paper it dissolves
+   into it, and on a dark section it burns a hole. So every render sits on an
+   ivory matte inside a hairline, and the matte flips with the tokens. */
+
+/* Each matte wraps its own render. Without this the grid stretches every cell
+   to the tallest, and a wide short crop next to a full page sits in a column of
+   empty ivory that reads as a loading failure. */
+.specimens {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--s-4);
+  align-items: start;
+}
+
+.specimen {
+  margin: 0;
+  padding: var(--s-3);
+  background: var(--ivory);
+  border: 1px solid var(--rule);
+}
+
+.specimen img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+}
+
+.specimen-caption {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+  color: var(--dim);
+  margin-top: var(--s-2);
+}
+
+/* --- The access beat -------------------------------------------------------
+   Short serif lines on a dark ground, one to a row, hairline-separated. No
+   bullets: a bullet would make it a feature list, and these are statements. */
+
+.access-lines {
+  list-style: none;
+  margin: var(--s-4) 0 0;
+  padding: 0;
+  max-width: 46ch;
+}
+
+.access-lines li {
+  margin: 0;
+  padding: var(--s-3) 0;
+  border-top: 1px solid var(--rule);
+  font-family: var(--font-serif);
+  font-size: var(--t-lede);
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+.access-lines li:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+/* --- A hero with no piece beside it ----------------------------------------
+   The resolve piece moved to the method page, so the home hero is one column.
+   Without this the 62rem rule above holds a second column open and squeezes the
+   headline into half the page. The modifier is for markup that wants to say so
+   outright; the :has() form catches a hero that simply has one child. */
+
+.hero-grid--single,
+.hero-grid:has(> .hero-copy:only-child) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .thread path {
+    stroke-dashoffset: 0;
+    transition: none;
+    animation: none;
+  }
+
+  .thread-node,
+  .tile {
+    transition: none;
+  }
+}
+
+/* The thread is reading furniture and a printed page has no reading position,
+   so it goes rather than freezing at whatever fraction the reader stopped on. */
+@media print {
+  .thread {
+    display: none;
+  }
+}

@@ -190,6 +190,8 @@
       el.classList.add("is-visible");
       if (el.classList.contains("timeline")) el.classList.add("is-drawn");
       if (animate && el.hasAttribute("data-count")) countUp(el);
+      // A tile piece assembles as it arrives, and only the first time.
+      if (animate && playTilePieces) playTilePieces(el);
     }
 
     // No observer, or the visitor asked for reduced motion: show everything at
@@ -413,10 +415,279 @@
     });
   }
 
+  /* Tiles --------------------------------------------------------------------
+     A tile piece assembles once when it arrives and again on hover or focus.
+     Its steps are the `.tp-step` elements in DOM order, so the choreography is
+     carried by the markup as an ORDER and never as a number; `tp-draw` draws a
+     line, everything else fades in.
+
+     None of it is needed for the piece to read. The CSS default is the finished
+     frame, so with this dead, with the animation API missing, or with reduced
+     motion asked for, the reader gets the whole thing at once. */
+  var playTilePieces = null;
+
+  function initTiles() {
+    if (reduceMotion) return;
+    var pieces = doc.querySelectorAll("[data-tile-piece]");
+    if (!pieces.length) return;
+
+    var EASE = "cubic-bezier(0.2, 0, 0, 1)";
+
+    function play(piece) {
+      // The running flag, cleared by a timeout at the end of the sequence, is
+      // what stops a second hover from restarting it on top of itself.
+      if (piece.previoRunning || typeof piece.animate !== "function") return;
+      var steps = piece.querySelectorAll(".tp-step");
+      if (!steps.length) return;
+      piece.previoRunning = true;
+
+      // A replay drops the animations the last one left holding, so hovering a
+      // tile fifty times leaves fifty animations behind rather than a thousand.
+      var held = piece.previoAnims || [];
+      for (var c = 0; c < held.length; c++) held[c].cancel();
+
+      var anims = [];
+      var last = 0;
+      each(steps, function (step, i) {
+        var draws = step.classList.contains("tp-draw");
+        var dur = draws ? 320 : 240;
+        var at = i * 140;
+        anims.push(
+          step.animate(
+            draws
+              ? [{ strokeDashoffset: "1" }, { strokeDashoffset: "0" }]
+              : [{ opacity: 0 }, { opacity: 1 }],
+            { duration: dur, delay: at, easing: EASE, fill: "both" }
+          )
+        );
+        if (at + dur > last) last = at + dur;
+      });
+      piece.previoAnims = anims;
+
+      window.setTimeout(function () {
+        piece.previoRunning = false;
+      }, last + 80);
+    }
+
+    // What initReveals calls the first time a tile comes into view.
+    playTilePieces = function (root) {
+      if (root.hasAttribute("data-tile-piece")) play(root);
+      each(root.querySelectorAll("[data-tile-piece]"), play);
+    };
+
+    each(pieces, function (piece) {
+      var tile = piece.closest ? piece.closest(".tile") : null;
+      if (!tile) return;
+      function replay() {
+        play(piece);
+      }
+      tile.addEventListener("pointerenter", replay);
+      tile.addEventListener("focus", replay);
+    });
+  }
+
+  /* The thread ----------------------------------------------------------------
+     One oxblood hairline down the whole page: a spine in the left gutter, a
+     tick into every [data-thread] anchor, and a small square node at each tick
+     that fills as the line reaches it. The svg is built here rather than
+     authored, because its geometry IS the page's own layout.
+
+     Geometry is read off the offsetTop/offsetLeft chain and NOT off
+     getBoundingClientRect: an anchor inside a `.reveal` is still translated
+     14px down until it arrives, and a rect would put the whole route out of
+     true by that much and then never correct it.
+
+     Below 40rem there is no thread at all. The gutter is 2rem there, too narrow
+     to hold a spine and a tick, and the stacked layout would put every node in
+     one screen, which is a decoration rather than a route. */
+  function initThread() {
+    var scope = doc.querySelector(".thread-scope");
+    if (!scope) return;
+
+    var anchors = [];
+    each(scope.querySelectorAll("[data-thread]"), function (el) {
+      anchors.push(el);
+    });
+    if (anchors.length < 2) return;
+
+    var NS = "http://www.w3.org/2000/svg";
+    var narrow = window.matchMedia
+      ? window.matchMedia("(max-width: 40rem)")
+      : null;
+    var svg = null;
+    var nodes = [];
+
+    function make(name, attrs) {
+      var node = doc.createElementNS(NS, name);
+      for (var key in attrs) node.setAttribute(key, attrs[key]);
+      return node;
+    }
+
+    function offsetWithin(el, root) {
+      var x = 0;
+      var y = 0;
+      var node = el;
+      while (node && node !== root) {
+        x += node.offsetLeft;
+        y += node.offsetTop;
+        node = node.offsetParent;
+      }
+      return { x: x, y: y };
+    }
+
+    function round(n) {
+      return Math.round(n * 10) / 10;
+    }
+
+    function build() {
+      if (svg && svg.parentNode) svg.parentNode.removeChild(svg);
+      svg = null;
+      nodes = [];
+      if (narrow && narrow.matches) return;
+
+      var rem =
+        parseFloat(getComputedStyle(doc.documentElement).fontSize) || 16;
+      var w = scope.offsetWidth;
+      var h = scope.offsetHeight;
+      if (!w || !h) return;
+
+      // The spine sits in the leftmost gutter any anchor's container opens, so
+      // it never crosses text however wide that section's container happens
+      // to be.
+      var gutter = -1;
+      var points = [];
+      each(anchors, function (a) {
+        var hold = a.closest ? a.closest(".contain, .contain-wide") : null;
+        if (hold) {
+          var left = offsetWithin(hold, scope).x;
+          if (gutter < 0 || left < gutter) gutter = left;
+        }
+        var box = offsetWithin(a, scope);
+        points.push({
+          x: box.x,
+          y: box.y,
+          w: a.offsetWidth,
+          h: a.offsetHeight,
+          top: a.getAttribute("data-thread") === "top"
+        });
+      });
+      var spine = (gutter < 0 ? 0 : gutter) + rem;
+
+      // The route starts under the first anchor, which is the full stop at the
+      // end of the headline.
+      var cx = points[0].x + points[0].w / 2;
+      var cy = points[0].y + points[0].h;
+      var d = "M" + round(cx) + " " + round(cy);
+      var len = 0;
+
+      // Every leg is axis aligned, so the running length is a sum of two
+      // deltas and no path measurement is needed to know where a node sits
+      // on it.
+      function to(x, y) {
+        len += Math.abs(x - cx) + Math.abs(y - cy);
+        cx = x;
+        cy = y;
+        d += "L" + round(x) + " " + round(y);
+      }
+
+      nodes.push({ x: cx, y: cy, at: 0 });
+      to(cx, cy + rem);
+      to(spine, cy);
+
+      for (var i = 1; i < points.length; i++) {
+        var pt = points[i];
+        // A tall figure asks for the tick at its top edge rather than its
+        // middle, so the line does not disappear behind it for half a screen.
+        var y = pt.top ? pt.y + rem : pt.y + pt.h / 2;
+        if (y < cy) y = cy; // one subpath, always downward, so progress is monotone
+        // The tick is a mark in the gutter, not a rule across the page. An
+        // anchor far to the right (the third tile in a row of three) would
+        // otherwise be reached by a line drawn straight through the two tiles
+        // beside it, which reads as a strikethrough rather than a thread.
+        var tick = pt.x - 8;
+        if (tick > spine + rem) tick = spine + rem;
+        if (tick < spine + 6) tick = spine + 6;
+        to(spine, y);
+        to(tick, y);
+        nodes.push({ x: tick, y: y, at: len });
+        to(spine, y);
+      }
+      if (!len) return;
+
+      each(nodes, function (n) {
+        n.at = n.at / len;
+      });
+
+      svg = make("svg", {
+        class: "thread",
+        "aria-hidden": "true",
+        viewBox: "0 0 " + w + " " + h
+      });
+      svg.appendChild(make("path", { d: d, pathLength: "1" }));
+      each(nodes, function (n) {
+        n.el = make("rect", {
+          class: "thread-node",
+          x: round(n.x - 3),
+          y: round(n.y - 3),
+          width: "6",
+          height: "6"
+        });
+        svg.appendChild(n.el);
+      });
+      scope.appendChild(svg);
+
+      // Reduced motion gets the whole route and every node at once, and no
+      // loop is ever started.
+      if (reduceMotion) {
+        svg.style.setProperty("--progress", "1");
+        each(nodes, function (n) {
+          n.el.classList.add("is-threaded");
+        });
+      }
+    }
+
+    function draw() {
+      if (!svg) return;
+      var box = svg.getBoundingClientRect();
+      var vh = window.innerHeight || 1;
+      // The reading line is 60% down the viewport, and --progress is how far it
+      // has crossed the svg. Where CSS drives the stroke this value goes unread
+      // and the loop is here only to light the nodes.
+      var p = clamp01((0.6 * vh - box.top) / (box.height || 1));
+      svg.style.setProperty("--progress", p.toFixed(3));
+      for (var i = 0; i < nodes.length; i++) {
+        nodes[i].el.classList.toggle("is-threaded", p >= nodes[i].at);
+      }
+    }
+
+    build();
+    if (!reduceMotion) onScrollFrame(draw);
+
+    // The route is the layout, so it is rebuilt whenever the layout can have
+    // moved: a settled resize, and the one reflow the webfonts cause.
+    var timer = null;
+    window.addEventListener("resize", function () {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(function () {
+        timer = null;
+        build();
+        schedule();
+      }, 150);
+    });
+    if (doc.fonts && doc.fonts.ready && doc.fonts.ready.then) {
+      doc.fonts.ready.then(function () {
+        build();
+        schedule();
+      });
+    }
+  }
+
   ready(function () {
     each(doc.querySelectorAll("[data-stagger]"), setStagger);
+    initTiles();
     initReveals();
     initNav();
     initTracks();
+    initThread();
   });
 })();

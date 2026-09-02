@@ -143,6 +143,15 @@
   --s-6: 5.6rem;
   --s-7: 8rem;
 
+  /* The thread is one continuous line spanning the whole page, so unlike every
+     other element it cannot take its colour from the section it happens to be
+     crossing: it crosses all of them. It therefore takes the lighter oxblood,
+     the value --severe carries on a dark ground, because the page opens dark
+     and closes dark and a deep oxblood hairline disappears there. On paper the
+     same value still reads clearly as the finding colour. Not a new colour: it
+     is the dark-palette --severe, pinned by check_design_tokens like the rest. */
+  --thread-line: #c4564f;
+
   --measure: 34rem;      /* prose column: ~68 characters at --t-body */
   --contain: 68rem;
   --contain-wide: 82rem;
