@@ -19,9 +19,17 @@
 <nav class="top-nav">
     <div class="contain top-nav-inner">
         <a href="/da/" class="logo">Previo<span class="logo-dot">.</span></a>
-        <div class="nav-links">
-            <a href="/da/kontakt/" class="btn btn-primary">Kontakt</a>
-            <a href="/" class="nav-lang" hreflang="en">EN</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu">
+            <span class="nav-toggle-label">Menu</span>
+            <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span></span>
+        </button>
+        <div class="nav-links" id="site-menu">
+            <a href="/da/metode/">Metode</a>
+            <a href="/da/personer/">Personer</a>
+            <a href="/da/virksomheder/">Virksomheder</a>
+            <a href="/da/dokumentation/">Dokumentation</a>
+            <button type="button" class="btn btn-primary" data-lead="contact">Anmod om adgang</button>
+            <a href="/terms/" class="nav-lang" hreflang="en">EN</a>
         </div>
     </div>
 </nav>
@@ -63,7 +71,7 @@
     <p>Disse vilkår er underlagt dansk ret, uden at dette berører ufravigelige bestemmelser i kundens hjemland. Tvister afgøres ved Københavns domstole.</p>
 
     <h2>Kontakt</h2>
-    <p>NewNor Consulting ApS, CVR 43419536, Svendborggade 8, 3. th., 2100 København Ø, Danmark. <a href="mailto:info@newnor.dk">info@newnor.dk</a>.</p>
+    <p>NewNor Consulting ApS, CVR 43419536, Svendborggade 8, 3. th., 2100 København Ø, Danmark. <a href="mailto:hello@previo-group.com">hello@previo-group.com</a>.</p>
 
         </div>
     </div>
@@ -72,9 +80,12 @@
 <footer class="site-footer">
     <div class="contain site-footer-inner">
         <div>
-            <p>&copy; 2026 NewNor Consulting ApS &middot; CVR 43419536 &middot; <a href="mailto:info@newnor.dk">info@newnor.dk</a></p>
+            <p>&copy; 2026 NewNor Consulting ApS &middot; CVR 43419536 &middot; <a href="mailto:hello@previo-group.com">hello@previo-group.com</a></p>
         </div>
         <div class="footer-links">
+            <a href="/da/forsyningskaeder/">Forsyningskæder</a>
+            <a href="/da/personer/priser/">Priser</a>
+            <a href="/da/om/">Om</a>
             <a href="/da/persondatapolitik/">Persondatapolitik</a>
             <a href="/da/vilkaar/">Vilkår</a>
             <a href="https://www.newnor.dk/" target="_blank" rel="noopener">NewNor Consulting</a>
@@ -83,5 +94,6 @@
 </footer>
 
 <script src="/assets/chrome.js" defer></script>
+<script src="/assets/lead-form.js" defer></script>
 </body>
 </html>
